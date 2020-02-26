@@ -29,6 +29,7 @@ team = json.load(f)
 ```
 
 ## Praw: the python reddit API 
+### Initializing the API
 To use praw with your program you have to: 
 Go to [Reddit preferences/apps](https://www.reddit.com/prefs/apps) while logged in with a reddit account.
 Click on the create app and fill out the form:
@@ -49,4 +50,21 @@ reddit = praw.Reddit(client_id='my client id',
 
 ```
 
+Or if you want to do whatever your Reddit account is authorized to do:
+
+```
+import praw
+
+reddit = praw.Reddit(client_id='my client id',
+                     client_secret='my client secret',
+                     user_agent='my user agent',
+                     username='my username',
+                     password='my password')
+```
+
+### Reding data 
+Obtaining a subreddit instance [More instances on the subreddit instance](https://praw.readthedocs.io/en/latest/code_overview/models/subreddit.html#praw.models.Subreddit)
+```
+subreddit = reddit.subreddit('learnpython')      
+```
 
