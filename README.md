@@ -38,7 +38,7 @@ Click on the create app and fill out the form:
 - about url: You can leave this blank
 - redirect url: http://localhost:8080 
 
-That gives you your app's client ID and apps client secret number which are used when you create a reddit instance, as showed in the below example:
+That gives you your app's client ID and apps client secret number which are used when you create a reddit instance, as shown in the example below:
 
 ```
 import praw
