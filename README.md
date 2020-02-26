@@ -62,9 +62,55 @@ reddit = praw.Reddit(client_id='my client id',
                      password='my password')
 ```
 
-### Reding data 
-Obtaining a subreddit instance [More instances on the subreddit instance](https://praw.readthedocs.io/en/latest/code_overview/models/subreddit.html#praw.models.Subreddit)
+### Reading data 
+#### Obtaining a subreddit instance [Subreddit instances](https://praw.readthedocs.io/en/latest/code_overview/models/subreddit.html#praw.models.Subreddit):
 ```
 subreddit = reddit.subreddit('learnpython')      
 ```
 
+#### Obtain submission instances from a created submission instance [Submission instances](https://praw.readthedocs.io/en/latest/code_overview/models/submission.html#praw.models.Submission):
+
+Example:
+```
+# assume you have a Subreddit instance bound to variable `subreddit`
+for submission in subreddit.hot(limit=10):
+    print(submission.title)  # Output: the submission's title
+    print(submission.score)  # Output: the submission's score
+    print(submission.id)     # Output: the submission's ID
+    print(submission.url)    # Output: the URL the submission points to
+                             # or the submission's URL if it's a self post
+```
+Sorts you can iterate through:
+- controversial
+- gilded
+- hot
+- new
+- rising
+- top
+
+#### Obtain redditor instances [Redditor Attributes](https://praw.readthedocs.io/en/latest/code_overview/models/redditor.html#praw.models.Redditor):
+
+Two most common ones are:
+- via the author attribute of a Submission or Comment instance
+- via the redditor() method of Reddit
+
+Example:
+```
+ # assume you have a Submission instance bound to variable `submission`
+ redditor1 = submission.author
+ print(redditor1.name)  # Output: name of the redditor
+
+# assume you have a Reddit instance bound to variable `reddit`
+ redditor2 = reddit.redditor('bboe')
+ print(redditor2.link_karma)  # Output: u/bboe's karma
+```
+
+#### Obtain comment instances [Comment Attributes](https://praw.readthedocs.io/en/latest/code_overview/models/comment.html#praw.models.Comment):
+Submissions have a comments attribute that is a CommentForest instance. That instance is iterable and represents the top-level comments of the submission by the default comment sort (best). If you instead want to iterate over all comments as a flattened list you can call the list() method on a CommentForest instance.
+
+Example:
+```
+# assume you have a Reddit instance bound to variable `reddit`
+top_level_comments = list(submission.comments)
+all_comments = submission.comments.list()
+```
