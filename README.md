@@ -30,6 +30,7 @@ team = json.load(f)
 
 ## Praw: the python reddit API 
 ### Initializing the API
+[Getting started](https://praw.readthedocs.io/en/latest/getting_started/quick_start.html)
 To use praw with your program you have to: 
 Go to [Reddit preferences/apps](https://www.reddit.com/prefs/apps) while logged in with a reddit account.
 Click on the create app and fill out the form:
