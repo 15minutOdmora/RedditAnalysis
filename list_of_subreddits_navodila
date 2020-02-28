@@ -1,0 +1,7 @@
+list_of_subreddits = { 'nsfw': [seznam subredditov ki so nsfw],
+                       'normal': [-ll-],
+                       'usa' : [-ll-],
+                       'europe' [-ll-]} 
+                       
+[seznam subredditov] = [['ime', rank, num_of_subscribers], ...]
+
