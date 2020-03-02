@@ -170,9 +170,5 @@ def main():
             print(item , ' : ' , temp[item])
         '''
         del data
-<<<<<<< HEAD
         counter += 1
 main()
-=======
-main()
->>>>>>> 69aeb072a97258c65125919054884c6143936e35
