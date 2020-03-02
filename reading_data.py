@@ -6,9 +6,9 @@ import math
 import os
 
 # Initializing the API
-reddit = praw.Reddit(client_id='g5oHfBMlowm7oQ',
-                     client_secret='MX-BmHukfZxZY4jf1-ZFA8IcdA4',
-                     user_agent='RedditAnalysis by u/Adarkcid')
+reddit = praw.Reddit(client_id='',
+                     client_secret='',
+                     user_agent='')
 print(reddit.read_only) # Test if working(prints True)
 
 def unix_to_utc(unix_time):
@@ -170,5 +170,9 @@ def main():
             print(item , ' : ' , temp[item])
         '''
         del data
+<<<<<<< HEAD
         counter += 1
 main()
+=======
+main()
+>>>>>>> 69aeb072a97258c65125919054884c6143936e35
