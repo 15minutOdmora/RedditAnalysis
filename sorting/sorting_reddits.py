@@ -1,33 +1,22 @@
 import json
 
-list = []
+list_reddit = {'nsfw': [], 'normal': [], 'usa': [], 'europe': []}
+nsfw = []
 num = 1
+
+for line in open('nsfw.txt', 'r'):
+    line = line.split()
+    line = [x.replace('r/', '') for x in line]
+    nsfw += line
+
 for line in open('subredditi.txt', 'r'):
     line = line.split()
     if num == 1:
         num = 0
+    elif line[1].strip('/r/') in nsfw:
+        list_reddit['nsfw'] += [line[1].strip('/r/'), int(line[0].replace(',','')), int(line[2].replace(',',''))]
     else:
-        list.append([line[1].strip('/r/'), line[0], line[2]])
+        list_reddit['normal'] += [line[1].strip('/r/'), int(line[0].replace(',','')), int(line[2].replace(',',''))]
 
-list_reddit = {'nsfw': [], 'normal': [], 'usa': [], 'europe': []}
-
-nsfw = []
-for line in open('nsfw.txt', 'r'):
-    line = line.split()
-    line = [x.strip('r/') for x in line]
-    nsfw += line
-
-for ena in list:
-    for dva in nsfw:
-        if ena[0] == dva:
-            list_reddit['nsfw'] += [ena]
-
-for stvar in list_reddit['nsfw']:
-    if stvar in list:
-        list.remove(stvar)
-
-for nekaj in list:
-    list_reddit['normal'] += [nekaj]
-
-with open('reddit_dict.json', 'w') as fp:
-    json.dump(list_reddit, fp)
+with open('reddit_dict1.json', 'w') as fp:
+    json.dump(list_reddit, fp, indent = 4)
