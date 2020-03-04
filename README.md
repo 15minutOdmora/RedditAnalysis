@@ -28,6 +28,11 @@ f = open('mydata.json')                # Reading data
 team = json.load(f)
 ```
 
+## HDF5
+The big dictionaries of data will be saved in a HDF5 format.
+
+
+
 ## Praw: the python reddit API 
 ### Initializing the API
 [Getting started](https://praw.readthedocs.io/en/latest/getting_started/quick_start.html)
