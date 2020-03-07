@@ -2,13 +2,12 @@ import praw
 import json
 import datetime
 import time
-import math
 import os
 
 # Initializing the API
-reddit = praw.Reddit(client_id='',
-                     client_secret='',
-                     user_agent='')
+reddit = praw.Reddit(client_id='g5oHfBMlowm7oQ',
+                     client_secret='MX-BmHukfZxZY4jf1-ZFA8IcdA4',
+                     user_agent='RedditAnalysis by u/Adarkcid')
 print(reddit.read_only) # Test if working(prints True)
 
 def unix_to_utc(unix_time):
@@ -47,8 +46,8 @@ class DailySubredditData:
 
     def is_in_time_range(self, unix_time):
         """ FUNCTION:
-        Checks if the time is in the in the time range (self.current_time - 32h , self.current_time - 8)"""
-        if self.current_time - 115200 <= unix_time < self.current_time - 28800:
+        Checks if the time is in the in the time range (self.current_time - 4d8h , self.current_time - 8)"""
+        if self.current_time - 374400 <= unix_time < self.current_time - 28800:
             return True
         else:
             return False
@@ -58,11 +57,10 @@ class DailySubredditData:
         retrieves data from 24h(-32h to -8h) and saves the data to the self.variables,
         Idea: We can change the search time to 'day', 'week', 'month'. changing the variable self.period """
         counter = 0
-        print('Scraping data from: ' + self.name , end='')
+        print(self.name + ' scraping data ... ', end='')
         for submission in reddit.subreddit(self.name).top(time_filter=self.period):
 
             if self.is_in_time_range(int(submission.created_utc)):
-                print('|', end='')
                 num_upvotes, num_comments = submission.score, submission.num_comments
                 self.upvotes.append(num_upvotes)
                 self.comments.append(num_comments)
@@ -103,22 +101,22 @@ class DailySubredditData:
                 self.number_of_submissions += 1
 
             counter += 1
-            if counter > 5: break  # Testing purpose
-        print('  Finished')
+            if counter > 20: break  # Testing purpose
+        print(' {} submissions read - Finished.'.format(self.number_of_submissions))
 
-    def data_preview_txt(self, counter):
+    def data_preview_txt(self, counter, path):
         """ METHOD: Saves the daily average data in a .txt file
             just for preview"""
         preview_dict = dict()
         preview_dict['num_of_posts'] = self.number_of_submissions
-        preview_dict['datetime'] = [unix_to_utc(self.current_time - 115200), unix_to_utc(self.current_time - 28800)]
+        preview_dict['datetime'] = [unix_to_utc(self.current_time - 374400), unix_to_utc(self.current_time - 28800)]
         preview_dict['avg_upvotes'] = round(sum(self.upvotes)/len(self.upvotes), 2)
         preview_dict['avg_comments'] = round(sum(self.comments)/len(self.comments), 2)
         preview_dict['avg_ud_ratio'] = round(sum(self.ud_ratio)/len(self.ud_ratio), 2)
         preview_dict['avg_uc_ratio_1'] = round(sum(self.upvotes)/sum(self.comments), 2)
         preview_dict['avg_uc_ratio_2'] = round(sum(self.uc_ratio)/len(self.uc_ratio), 2)
         preview_dict['num_of_oc_content'] = sum(self.oc)
-        preview_dict['avg_awards'] = [round(sum(a) / len(a), 2) for a in self.awards]
+        preview_dict['avg_awards'] = [round(sum(a) / len(a), 4) for a in self.awards]
         preview_dict['avg_title_length'] = [round(sum(a) / len(a), 2) for a in self.title_length]
         # avg. of the top 3 top comm.
         per_post_avg_top3c = [round(sum(sorted([b for b in a[1:]])[::-1][:3])/3, 2) for a in self.u_top10_comments]
@@ -127,7 +125,7 @@ class DailySubredditData:
 
         # Saving the averages to a .txt file,
         curr_date_time = unix_to_datetime(self.current_time)    # 'dd_mm_yyyy_hh'
-        with open(curr_date_time + '.txt', 'a') as file:
+        with open(path + '\{}.txt'.format(curr_date_time), 'a') as file:
             if counter == 1:             # If its the first sub we are saving, create the first and second line
                 titles = curr_date_time + (15 - len(curr_date_time)) * ' ' + '   '
                 for key, value in preview_dict.items():
@@ -147,22 +145,44 @@ class DailySubredditData:
 
             file.write(dat_str + '\n')
 
-    def saving_data_to_json(self):
-        """todo METHOD: Saves the daily data to a .json file"""
-
-class DailyRedditorData:
-    def __init__(self, username):
-        self.username = username
-    #todo Class to read daily redditor data
+    def saving_data_to_json(self, counter, path):
+        """ Saves the daily data to a .json file"""
+        sub_dict = dict()
+        sub_dict['datetime'] = [self.current_time - 374400, self.current_time - 28800]
+        sub_dict['number_of_submissions'] = self.number_of_submissions
+        sub_dict['upvotes'] = self.upvotes
+        sub_dict['ud_ratio'] = self.ud_ratio
+        sub_dict['comments'] = self.comments
+        sub_dict['u_top10_comments'] = self.u_top10_comments
+        sub_dict['awards'] = self.awards
+        sub_dict['uc_ratio'] = self.uc_ratio
+        sub_dict['title_length'] = self.title_length
+        sub_dict['time'] = self.time
+        sub_dict['username'] = self.username
+        sub_dict['oc'] = self.oc
+        # Save the data to a new json file
+        with open(path + '\{}.json'.format(self.name), 'w') as file:
+            json.dump(sub_dict, file)
+        print(self.name, ' saved to file. {}'.format(counter))
 
 list_of_subs = ['natureismetal', 'TIHI', 'askreddit']
+'''f = open('subreddit_dict.json')
+subreddits = json.load(f)
+list_of_subs = []'''
 
 def main():
     counter = 1
+    # Creates a new directory, named as the date and hour the program ran
+    curr_time = unix_to_datetime(int(time.time()))   # Path below is for liams pc
+    new_path = r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis\data\{}'.format(curr_time)
+    if not os.path.exists(new_path):
+        os.makedirs(new_path)
+
     for sub in list_of_subs:
-        data = DailySubredditData(sub,'day')
+        data = DailySubredditData(sub, 'week') # Creates instance for the subreddit
         data.fetching_data()              # Reads data from reddit
-        # data.data_preview_txt(counter)    # Creates a prevew .txt file
+        data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
+        data.saving_data_to_json(counter, new_path)          # Saves the data to a .jsom file
         '''
         # Test: Prints all data of the instance
         temp = vars(data)
@@ -171,4 +191,6 @@ def main():
         '''
         del data
         counter += 1
-main()
+
+if __name__ == '__main__':
+    main()
