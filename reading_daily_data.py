@@ -181,12 +181,12 @@ def main(list_of_subs):
         else:
             for sub in value:
                 counter += 1
-                if counter < 56: continue
+                #if counter < 56: continue
                 subreddit = sub[0]
                 data = DailySubredditData(subreddit, 'day')  # Creates instance for the subreddit
-                data.fetching_data()              # Reads data from reddit
+                data.fetching_data()
                 data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
-                data.saving_data_to_json(counter, new_path)          # Saves the data to a .jsom file
+                data.saving_data_to_json(counter, new_path)   # Saves the data to a .jsom file
                 '''
                 # Test: Prints all data of the instance
                 temp = vars(data)
@@ -198,8 +198,12 @@ def main(list_of_subs):
                     break
 
 if __name__ == '__main__':
-    f = open('subreddit_dict2.json')
+    '''f = open('subreddit_dict2.json')
     list_of_subs = json.load(f)
     main(list_of_subs)
-    f.close()
+    f.close()'''
+    list_of_subs = {'usa': [['kjsbndflhbasd'], ['aww']]}
+    main(list_of_subs)
+
+
 
