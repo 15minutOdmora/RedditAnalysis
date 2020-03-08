@@ -16,9 +16,8 @@ for line in open('nsfw.txt', 'r'):
 for line in open('subredditi.txt', 'r'):
     line = line.split()
     name, rank, subs = line[1].replace('/r/',''), int(line[0].replace(',','')), int(line[2].replace(',',''))
-    #print(name, rank, subs)
     sub = reddit.subreddit(name)
-    #print(sub)
+    
     if num == 1:
         num = 0
     else:
