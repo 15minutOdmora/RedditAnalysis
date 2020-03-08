@@ -24,7 +24,7 @@ def unix_to_datetime(unix_time):
     normal_time = datetime.datetime.fromtimestamp(int(unix_time)).strftime('%d_%m_%Y_%H')
     return normal_time
 
-class DailySubredditData:
+class SubredditData:
     def __init__(self, name, period):
         self.name = name
         self.number_of_submissions = 0  # The number of subissions read
@@ -170,40 +170,39 @@ class DailySubredditData:
 
 def main(list_of_subs):
     counter = 0
+    did_not_read = list()
     # Creates a new directory, named as the date and hour the program ran
     curr_time = unix_to_datetime(int(time.time()))   # Path below is for liams pc
     new_path = r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis\data\{}'.format(curr_time)
     if not os.path.exists(new_path):
         os.makedirs(new_path)
+
     for key, value in list_of_subs.items():
-        if key == 'nsfw':   #todo Some nsfw subs dont exist anymore, fix the list
-            pass
-        else:
-            for sub in value:
-                counter += 1
-                #if counter < 56: continue
-                subreddit = sub[0]
-                data = DailySubredditData(subreddit, 'day')  # Creates instance for the subreddit
-                data.fetching_data()
-                data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
-                data.saving_data_to_json(counter, new_path)   # Saves the data to a .jsom file
-                '''
-                # Test: Prints all data of the instance
-                temp = vars(data)
-                for item in temp:
-                    print(item , ' : ' , temp[item])
-                '''
-                del data
-                if counter > 500:
-                    break
+        for sub in value:
+
+            subreddit = sub[0]
+            try:
+                test = reddit.subreddit(subreddit)      # Tests if the sub name is valid
+            except prawcore.exceptions.ServerError as e:
+                did_not_read.append(sub)
+                continue
+
+            data = SubredditData(subreddit, 'day')  # Creates instance for the subreddit
+            data.fetching_data()
+            data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
+            data.saving_data_to_json(counter, new_path)   # Saves the data to a .jsom file
+            '''
+            # Test: Prints all data of the instance
+            temp = vars(data)
+            for item in temp:
+                print(item , ' : ' , temp[item])
+            '''
+            del data
+            counter += 1
+            print('did_not_read: ' + str(did_not_read))
 
 if __name__ == '__main__':
-    '''f = open('subreddit_dict2.json')
+    f = open('subreddit_dict_fin.json')
     list_of_subs = json.load(f)
     main(list_of_subs)
-    f.close()'''
-    list_of_subs = {'usa': [['kjsbndflhbasd'], ['aww']]}
-    main(list_of_subs)
-
-
-
+    f.close()
