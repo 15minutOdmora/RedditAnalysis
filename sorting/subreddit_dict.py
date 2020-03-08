@@ -16,13 +16,13 @@ europe = ['Europe', 'Austria', 'Albania', 'Belgium', 'slovenia', 'Bosnia', 'Croa
 new_usa = [[sub, None, reddit.subreddit(sub).subscribers] for sub in usa]
 new_europe = [[sub, None, reddit.subreddit(sub).subscribers] for sub in europe]
 
-f = open('subreddit_dict.json')
+f = open(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis\sorting\reddit_dict1.json')
 dic = json.load(f)
 
 dic["usa"] = new_usa
 dic["europe"] = new_europe
 f.close()
 
-with open('subreddit_dict2.json', 'w') as fi:
+with open(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis\subreddit_dict2.json', 'w') as fi:
     json.dump(dic, fi)
 

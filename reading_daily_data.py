@@ -1,4 +1,5 @@
 import praw
+import prawcore
 import json
 import datetime
 import time
@@ -46,8 +47,8 @@ class DailySubredditData:
 
     def is_in_time_range(self, unix_time):
         """ FUNCTION:
-        Checks if the time is in the in the time range (self.current_time - 4d8h , self.current_time - 8)"""
-        if self.current_time - 374400 <= unix_time < self.current_time - 28800:
+        Checks if the time is oldar then -4h"""
+        if unix_time < self.current_time - 14400:
             return True
         else:
             return False
@@ -57,9 +58,9 @@ class DailySubredditData:
         retrieves data from 24h(-32h to -8h) and saves the data to the self.variables,
         Idea: We can change the search time to 'day', 'week', 'month'. changing the variable self.period """
         counter = 0
-        print(self.name + ' scraping data ... ', end='')
+        print(str(self.name) + ' scraping data ... ', end='')
         for submission in reddit.subreddit(self.name).top(time_filter=self.period):
-
+            counter += 1
             if self.is_in_time_range(int(submission.created_utc)):
                 num_upvotes, num_comments = submission.score, submission.num_comments
                 self.upvotes.append(num_upvotes)
@@ -100,8 +101,7 @@ class DailySubredditData:
                 self.title_length[1].append(len(title_str))
                 self.number_of_submissions += 1
 
-            counter += 1
-            if counter > 20: break  # Testing purpose
+            if counter > 1500: break  # Testing purpose
         print(' {} submissions read - Finished.'.format(self.number_of_submissions))
 
     def data_preview_txt(self, counter, path):
@@ -114,7 +114,10 @@ class DailySubredditData:
         preview_dict['avg_comments'] = round(sum(self.comments)/len(self.comments), 2)
         preview_dict['avg_ud_ratio'] = round(sum(self.ud_ratio)/len(self.ud_ratio), 2)
         preview_dict['avg_uc_ratio_1'] = round(sum(self.upvotes)/sum(self.comments), 2)
-        preview_dict['avg_uc_ratio_2'] = round(sum(self.uc_ratio)/len(self.uc_ratio), 2)
+        try:
+            preview_dict['avg_uc_ratio_2'] = round(sum(self.uc_ratio)/len(self.uc_ratio), 2)
+        except:
+            preview_dict['avg_uc_ratio_2'] = 'ned'
         preview_dict['num_of_oc_content'] = sum(self.oc)
         preview_dict['avg_awards'] = [round(sum(a) / len(a), 4) for a in self.awards]
         preview_dict['avg_title_length'] = [round(sum(a) / len(a), 2) for a in self.title_length]
@@ -163,34 +166,40 @@ class DailySubredditData:
         # Save the data to a new json file
         with open(path + '\{}.json'.format(self.name), 'w') as file:
             json.dump(sub_dict, file)
-        print(self.name, ' saved to file. {}'.format(counter))
+        print(self.name, ' saved to file. ...... {}'.format(counter))
 
-list_of_subs = ['natureismetal', 'TIHI', 'askreddit']
-'''f = open('subreddit_dict.json')
-subreddits = json.load(f)
-list_of_subs = []'''
-
-def main():
-    counter = 1
+def main(list_of_subs):
+    counter = 0
     # Creates a new directory, named as the date and hour the program ran
     curr_time = unix_to_datetime(int(time.time()))   # Path below is for liams pc
     new_path = r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis\data\{}'.format(curr_time)
     if not os.path.exists(new_path):
         os.makedirs(new_path)
-
-    for sub in list_of_subs:
-        data = DailySubredditData(sub, 'week') # Creates instance for the subreddit
-        data.fetching_data()              # Reads data from reddit
-        data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
-        data.saving_data_to_json(counter, new_path)          # Saves the data to a .jsom file
-        '''
-        # Test: Prints all data of the instance
-        temp = vars(data)
-        for item in temp:
-            print(item , ' : ' , temp[item])
-        '''
-        del data
-        counter += 1
+    for key, value in list_of_subs.items():
+        if key == 'nsfw':   #todo Some nsfw subs dont exist anymore, fix the list
+            pass
+        else:
+            for sub in value:
+                counter += 1
+                if counter < 56: continue
+                subreddit = sub[0]
+                data = DailySubredditData(subreddit, 'day')  # Creates instance for the subreddit
+                data.fetching_data()              # Reads data from reddit
+                data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
+                data.saving_data_to_json(counter, new_path)          # Saves the data to a .jsom file
+                '''
+                # Test: Prints all data of the instance
+                temp = vars(data)
+                for item in temp:
+                    print(item , ' : ' , temp[item])
+                '''
+                del data
+                if counter > 500:
+                    break
 
 if __name__ == '__main__':
-    main()
+    f = open('subreddit_dict2.json')
+    list_of_subs = json.load(f)
+    main(list_of_subs)
+    f.close()
+
