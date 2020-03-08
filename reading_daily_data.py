@@ -59,8 +59,11 @@ class SubredditData:
         Idea: We can change the search time to 'day', 'week', 'month'. changing the variable self.period """
         counter = 0
         print(str(self.name) + ' scraping data ... ', end='')
-        for submission in reddit.subreddit(self.name).top(time_filter=self.period):
+        subred = reddit.subreddit(self.name) #*
+        # reddit.subreddit(self.name).top(time_filter=self.period) in subred.top(limit=num_of_posts)
+        for submission in reddit.subreddit(self.name).top(limit=100, time_filter=self.period): #*
             counter += 1
+            print('.', end='')
             if self.is_in_time_range(int(submission.created_utc)):
                 num_upvotes, num_comments = submission.score, submission.num_comments
                 self.upvotes.append(num_upvotes)
@@ -101,7 +104,7 @@ class SubredditData:
                 self.title_length[1].append(len(title_str))
                 self.number_of_submissions += 1
 
-            if counter > 1500: break  # Testing purpose
+            if counter > 100: break  # Runime purpose
         print(' {} submissions read - Finished.'.format(self.number_of_submissions))
 
     def data_preview_txt(self, counter, path):
