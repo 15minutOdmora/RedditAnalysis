@@ -9,9 +9,7 @@ from reading_daily_data import SubredditData
 # Initializing the API
 reddit = praw.Reddit(client_id='g5oHfBMlowm7oQ',
                      client_secret='MX-BmHukfZxZY4jf1-ZFA8IcdA4',
-                     user_agent='RedditAnalysis by u/Adarkcid',
-                     password='liamliams122446969',
-                     username='ADarkcid')
+                     user_agent='RedditAnalysis by u/Adarkcid')
 
 print(reddit.user.me())
 print(reddit.read_only) # Test if working(prints True)

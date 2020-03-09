@@ -77,7 +77,7 @@ class SubredditData:
                 except:
                     self.username.append(None)
 
-                if num_comments > 0:
+                if num_comments > 0 and num_upvotes > 0:
                     self.uc_ratio.append(round(num_upvotes/num_comments))
                 else:
                     self.uc_ratio.append(None)
@@ -114,7 +114,8 @@ class SubredditData:
         preview_dict['num_of_posts'] = self.number_of_submissions
         preview_dict['datetime'] = [unix_to_utc(self.current_time - 374400), unix_to_utc(self.current_time - 28800)]
         preview_dict['avg_upvotes'] = round(sum(self.upvotes)/len(self.upvotes), 2)
-        preview_dict['avg_comments'] = round(sum(self.comments)/len(self.comments), 2)
+        if len(self.comments) > 0 and sum(self.comments) > 0:
+            preview_dict['avg_comments'] = round(sum(self.comments)/len(self.comments), 2)
         preview_dict['avg_ud_ratio'] = round(sum(self.ud_ratio)/len(self.ud_ratio), 2)
         preview_dict['avg_uc_ratio_1'] = round(sum(self.upvotes)/sum(self.comments), 2)
         try:
@@ -180,10 +181,17 @@ def main(list_of_subs):
     if not os.path.exists(new_path):
         os.makedirs(new_path)
 
+    ostali = False
     for key, value in list_of_subs.items():
+        if key == 'europe':
+            continue
         for sub in value:
-
             subreddit = sub[0]
+            if subreddit == 'gadgets':
+                ostali = True
+            if not ostali:
+                continue
+
             try:
                 test = reddit.subreddit(subreddit)      # Tests if the sub name is valid
             except prawcore.exceptions.ServerError as e:
@@ -192,7 +200,11 @@ def main(list_of_subs):
 
             data = SubredditData(subreddit, 'day')  # Creates instance for the subreddit
             data.fetching_data()
-            data.data_preview_txt(counter, new_path)    # Creates a prevew .txt file
+            try:
+                data.data_preview_txt(counter, new_path) # Creates a prevew .txt file
+            except:
+                pass
+
             data.saving_data_to_json(counter, new_path)   # Saves the data to a .jsom file
             '''
             # Test: Prints all data of the instance
