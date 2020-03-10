@@ -104,6 +104,7 @@ class SubredditData:
                 self.title_length[1].append(len(title_str))
                 self.number_of_submissions += 1
 
+
             if counter > 100: break  # Runime purpose
         print(' {} submissions read - Finished.'.format(self.number_of_submissions))
 
@@ -183,14 +184,15 @@ def main(list_of_subs):
 
     ostali = False
     for key, value in list_of_subs.items():
-        if key == 'europe':
+        if key != 'europe':
             continue
         for sub in value:
             subreddit = sub[0]
-            if subreddit == 'gadgets':
+
+            '''if subreddit == :
                 ostali = True
             if not ostali:
-                continue
+                continue '''
 
             try:
                 test = reddit.subreddit(subreddit)      # Tests if the sub name is valid
