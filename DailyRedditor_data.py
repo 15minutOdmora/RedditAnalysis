@@ -1,8 +1,8 @@
 import praw, time, datetime, json, os
 
-reddit = praw.Reddit(client_id='n1WIc796crv1mQ',
-                     client_secret='l2ZeRpYtZLl8gOQp-xILlOXiGHM',
-                     user_agent='RedditAnalysis2')
+reddit = praw.Reddit(client_id='',
+                     client_secret='',
+                     user_agent='')
 
 def unix_to_datetime(unix_time):
     """ FUNCTION:
