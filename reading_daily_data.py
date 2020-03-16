@@ -87,7 +87,8 @@ class SubredditData:
                 if len(submission.comments) > 0:
                     for i in range(len(submission.comments)):
                         if i >= 10: break
-                        self.u_top10_comments[self.number_of_submissions].append(submission.comments[i].score)
+                        try: self.u_top10_comments[self.number_of_submissions].append(submission.comments[i].score)
+                        except: pass
                 else:
                     self.u_top10_comments[self.number_of_submissions].append(0)
 
@@ -184,15 +185,15 @@ def main(list_of_subs):
 
     ostali = False
     for key, value in list_of_subs.items():
-        if key != 'europe':
-            continue
+        '''if key == 'europe':
+            continue'''
         for sub in value:
             subreddit = sub[0]
 
-            '''if subreddit == :
+            '''if subreddit == 'OutOfTheLoop':
                 ostali = True
             if not ostali:
-                continue '''
+                continue'''
 
             try:
                 test = reddit.subreddit(subreddit)      # Tests if the sub name is valid
