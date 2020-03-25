@@ -9,20 +9,24 @@ import os
 reddit = praw.Reddit(client_id='g5oHfBMlowm7oQ',
                      client_secret='MX-BmHukfZxZY4jf1-ZFA8IcdA4',
                      user_agent='RedditAnalysis by u/Adarkcid')
-print(reddit.read_only) # Test if working(prints True)
+print(reddit.read_only)  # Test if working(prints True)
+
 
 def unix_to_utc(unix_time):
     """ FUNCTION:
     Input = unix time, returns a touple = ([day, month, year], seconds_in_a_day),
     range from 0 - 86399, 86400s in one day"""
-    normal_time = [int(i) for i in datetime.datetime.fromtimestamp(int(unix_time)).strftime('%d %m %Y %H %M %S').split(' ')]
-    return (normal_time[:3], normal_time[3] * 3600 + normal_time[4] * 60 + normal_time[5])
+    list_time = datetime.datetime.fromtimestamp(int(unix_time)).strftime('%d %m %Y %H %M %S').split(' ')
+    normal_time = [int(i) for i in list_time]
+    return normal_time[:3], normal_time[3] * 3600 + normal_time[4] * 60 + normal_time[5]
+
 
 def unix_to_datetime(unix_time):
     """ FUNCTION:
     Input = unix time, returns a date and hhmmss string, used for daily file names"""
     normal_time = datetime.datetime.fromtimestamp(int(unix_time)).strftime('%d_%m_%Y_%H')
     return normal_time
+
 
 class SubredditData:
     def __init__(self, name, period):
@@ -59,9 +63,8 @@ class SubredditData:
         Idea: We can change the search time to 'day', 'week', 'month'. changing the variable self.period """
         counter = 0
         print(str(self.name) + ' scraping data ... ', end='')
-        subred = reddit.subreddit(self.name) #*
-        # reddit.subreddit(self.name).top(time_filter=self.period) in subred.top(limit=num_of_posts)
-        for submission in reddit.subreddit(self.name).top(limit=100, time_filter=self.period): #*
+        subred = reddit.subreddit(self.name)
+        for submission in subred.top(limit=100, time_filter=self.period):
             counter += 1
             print('.', end='')
             if self.is_in_time_range(int(submission.created_utc)):
@@ -86,17 +89,22 @@ class SubredditData:
                 self.u_top10_comments.append([len(submission.comments)])
                 if len(submission.comments) > 0:
                     for i in range(len(submission.comments)):
-                        if i >= 10: break
-                        try: self.u_top10_comments[self.number_of_submissions].append(submission.comments[i].score)
-                        except: pass
+                        if i >= 10:
+                            break
+                        try:
+                            self.u_top10_comments[self.number_of_submissions].append(submission.comments[i].score)
+                        except:
+                            pass
                 else:
                     self.u_top10_comments[self.number_of_submissions].append(0)
 
                 # Awards
                 if len(submission.gildings) > 0:
-                    for award, index in {'gid_1': 0, 'gid_2': 1, 'gid_3': 2}.items(): # silver, gold, plat respectively
-                        try: self.awards[index].append(submission.gildings[award])
-                        except: self.awards[index].append(0)
+                    for award, index in {'gid_1': 0, 'gid_2': 1, 'gid_3': 2}.items():  # silver, gold, plat respectively
+                        try:
+                            self.awards[index].append(submission.gildings[award])
+                        except:
+                            self.awards[index].append(0)
                 else:
                     for i in range(3): self.awards[i].append(0)
                 # Title lengths
@@ -105,8 +113,9 @@ class SubredditData:
                 self.title_length[1].append(len(title_str))
                 self.number_of_submissions += 1
 
+            if counter > 100:
+                break  # Runime purpose
 
-            if counter > 100: break  # Runime purpose
         print(' {} submissions read - Finished.'.format(self.number_of_submissions))
 
     def data_preview_txt(self, counter, path):
@@ -134,7 +143,7 @@ class SubredditData:
 
         # Saving the averages to a .txt file,
         curr_date_time = unix_to_datetime(self.current_time)    # 'dd_mm_yyyy_hh'
-        with open(path + '\{}.txt'.format(curr_date_time), 'a') as file:
+        with open(path + r'\{}.txt'.format(curr_date_time), 'a') as file:
             if counter == 1:             # If its the first sub we are saving, create the first and second line
                 titles = curr_date_time + (15 - len(curr_date_time)) * ' ' + '   '
                 for key, value in preview_dict.items():
@@ -170,9 +179,10 @@ class SubredditData:
         sub_dict['username'] = self.username
         sub_dict['oc'] = self.oc
         # Save the data to a new json file
-        with open(path + '\{}.json'.format(self.name), 'w') as file:
+        with open(path + r'\{}.json'.format(self.name), 'w') as file:
             json.dump(sub_dict, file)
         print(self.name, ' saved to file. ...... {}'.format(counter))
+
 
 def main(list_of_subs):
     counter = 0
@@ -190,21 +200,21 @@ def main(list_of_subs):
         for sub in value:
             subreddit = sub[0]
 
-            '''if subreddit == 'OutOfTheLoop':
+            '''if subreddit == :
                 ostali = True
             if not ostali:
                 continue'''
 
             try:
                 test = reddit.subreddit(subreddit)      # Tests if the sub name is valid
-            except prawcore.exceptions.ServerError as e:
+            except prawcore.exceptions.ServerError:
                 did_not_read.append(sub)
                 continue
 
             data = SubredditData(subreddit, 'day')  # Creates instance for the subreddit
             data.fetching_data()
             try:
-                data.data_preview_txt(counter, new_path) # Creates a prevew .txt file
+                data.data_preview_txt(counter, new_path)  # Creates a prevew .txt file
             except:
                 pass
 
@@ -224,3 +234,5 @@ if __name__ == '__main__':
     list_of_subs = json.load(f)
     main(list_of_subs)
     f.close()
+
+
