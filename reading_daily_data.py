@@ -232,7 +232,7 @@ def main(list_of_subs):
 if __name__ == '__main__':
     f = open('subreddit_dict_fin.json')
     list_of_subs = json.load(f)
-    main(list_of_subs)
-    f.close()
+    #main(list_of_subs)
+    #f.close()
 
 

@@ -1,8 +1,6 @@
 import praw
 import prawcore
 import json
-import datetime
-import time
 import os
 from reading_daily_data import SubredditData
 
