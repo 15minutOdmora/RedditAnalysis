@@ -167,10 +167,10 @@ class Analysis:
             plt.plot(x, k*x + n)
         plt.show()
 
-    def plot_post_and_avgupv_freq(self):
+    def plot_post_and_avgupv_freq(self, filter, specs=None):
         #todo finish this function start over actually
-        freq, upv = self.search('counted_data', what1='time_freq_hour', what2='time_freq_hour_upv', filter='nsfw')
-
+        freq, upv = self.search('counted_data', what1="time_freq_hour", what2="time_freq_hour_upv",
+                                filter=filter, specs=specs)
         all_freq, all_upv = np.zeros((1, 24)), np.zeros((1, 24))
         for sub in freq:
             index = 0
@@ -203,6 +203,8 @@ class Analysis:
         # Search the data:
         group1 = self.search(where='counted_data', filter=filter1, what1=what1, what2=what2, specs=specs1)
         group2 = self.search(where='counted_data', filter=filter2, what1=what1, what2=what2, specs=specs2)
+        print(group1)
+        print(group2)
         # Set the time period, and the data variables
         if what1 == 'time_freq_hour':
             time_period = 24
@@ -210,21 +212,32 @@ class Analysis:
             time_period = 72
         post_freq1, post_upv1 = np.zeros((1, time_period)), np.zeros((1, time_period))
         post_freq2, post_upv2 = np.zeros((1, time_period)), np.zeros((1, time_period))
+        if filter1 == "specific_sub":
+            for i in range(len(group1[0][0])):
+                post_freq1[0, i] += group1[0][0][i]
+            for i in range(len(group2[0][0])):
+                post_freq2[0, i] += group2[0][0][i]
+        else:
+            # Add up the lists for the two groups
+            for sub in range(len(group1[0])):  # Post freq. p. time period group1
+                for i in range(len(group1[0][sub][0])):
+                    post_freq1[0, i] += group1[0][sub][0][i]
+            for sub in range(len(group2[0])):  # Post freq. p. time period group2
+                for i in range(len(group2[0][sub][0])):
+                    post_freq2[0, i] += group2[0][sub][0][i]
 
-        # Add up the lists for the two groups
-        for sub in range(len(group1[0])):  # Post freq. p. time period group1
-            for i in range(len(group1[0][sub][0])):
-                post_freq1[0, i] += group1[0][sub][0][i]
-        for sub in range(len(group2[0])):  # Post freq. p. time period group2
-            for i in range(len(group2[0][sub][0])):
-                post_freq2[0, i] += group2[0][sub][0][i]
-
-        for sub in range(len(group1[1])):  # Sum of upvotes p. h. group1
-            for i in range(len(group1[1][sub][0])):
-                post_upv1[0, i] += group1[1][sub][0][i]
-        for sub in range(len(group2[1])):  # Sum of upvotes p. h. group2
-            for i in range(len(group2[1][sub][0])):
-                post_upv2[0, i] += group2[1][sub][0][i]
+        if filter2 == "specific_sub":
+            for i in range(len(group1[1][0])):
+                post_upv1[0, i] += group1[1][0][i]
+            for i in range(len(group2[1][0])):
+                post_upv2[0, i] += group2[1][0][i]
+        else:
+            for sub in range(len(group1[1])):  # Sum of upvotes p. h. group1
+                for i in range(len(group1[1][sub][0])):
+                    post_upv1[0, i] += group1[1][sub][0][i]
+            for sub in range(len(group2[1])):  # Sum of upvotes p. h. group2
+                for i in range(len(group2[1][sub][0])):
+                    post_upv2[0, i] += group2[1][sub][0][i]
 
         # Create the average upv. p. h. for the two groups
         avg_upv1, avg_upv2 = np.zeros((1, 24)), np.zeros((1, 24))
@@ -270,10 +283,17 @@ class Analysis:
             else:
                 color = specs
 
+            # title text and label text
+            if specs == 'coins':
+                title_text = "All rewards recieved in coins worth for each {} subreddit in a 10 day period".format(filter)
+                label_text = "Number of coins worth"
+            else:
+                title_text = "All {} awards recieved for each {} subreddit in a 10 day period".format(specs, filter)
+                label_text = "Number of {} awards".format(specs)
+
             specs_dict = {'silver': 0, 'gold': 1, 'platinum': 2, 'coins': 3}
             if len(data[specs_dict[specs]]) < top:
                 top = len(data[specs_dict[specs]])
-
             sub_names, sub_data = list(), list()
             for index in range(top):
                 num = data[specs_dict[specs]][index][1]
@@ -284,8 +304,13 @@ class Analysis:
 
             # Setting the numbers on bars
             for i, v in enumerate(sub_data[::-1]):
-                plt.text(2 + v, 2 * i + 1.1, str(v), color='black')
-            plt.title("Number of {}s for each subreddit in a 10 day period")
+                if specs == 'coins':
+                    k = str(v / 1000) + 'k'
+                else:
+                    k = str(v)
+                plt.text(25 + v, 2 * i + 1.3, k, color='black', fontsize=7)
+            plt.title(title_text)
+            plt.xlabel(label_text)
             plt.show()
 
         else:
@@ -307,8 +332,11 @@ class Analysis:
         """ FUNCTION: Returns different statistic data for spec.sub or group of subs """
         pass
 
-an = Analysis(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis')
-# an.sorted_bar_chart(filter='nsfw', what='s_avg_upvotes', top=25, specs='silver')
+#an = Analysis(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis')
+#an.sorted_bar_chart(filter='europe', what='s_awards', top=13, specs='coins')
 # an.scatter_plot_upv_com_ud(filter='specific_sub',specs=['askmen'], log_scale=True)
 # an.plot_post_and_avgupv_freq()
-an.compare_plots_post_avgupv_freq(filter1='europe', filter2='usa', what1='time_freq_hour', what2='time_freq_hour_upv')
+# an.compare_plots_post_avgupv_freq(filter1='europe', filter2='usa', what1='time_freq_hour', what2='time_freq_hour_upv')
+# "All rewards recieved in coins worth for each 'nsfw' subreddit in a 10 day period"
+if __name__ == '__main__':
+    pass
