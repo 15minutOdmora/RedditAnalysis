@@ -16,7 +16,6 @@ def all_users(data):
 
 def graph(data):
     '''This function plots the graph of posts by month'''
-
     month_x, month_y = [x for x in range(1,13)], data['po_mont']
     plt.figure(figsize=(12,6))
     plt.plot(month_x, month_y)
@@ -26,7 +25,6 @@ def graph(data):
 
 def posts_month(data):
     '''Return posts by month in list'''
-    data['po_mont'].remove(0)
     print('\n', data['po_mont'])
 
 with open('non_relational', 'r') as fp:
