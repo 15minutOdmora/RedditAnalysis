@@ -2,6 +2,8 @@ import json
 import os
 
 from analysis import Analysis
+from user_plots import histogram, all_users, graph, posts_month
+'''------------------novo---------------'''
 
 # Get the current directory and initialize the analysis class as an.
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -13,7 +15,22 @@ list_of_subs = []
 for key, value in dict_of_subs.items():
     for sub in value:
         list_of_subs.append(sub[0].lower())
-
+'''-------------------novo----------------------------'''
+# Data for user histogram and graph
+with open('non_relational', 'r') as fp:
+    data_histo = json.load(fp)
+data_histo['po_mont'].remove(0)
+mod_plots, prem_plots, both = 0, 0, 0
+for item1, item2 in zip(data_histo['is_mod'], data_histo['is_premium']):
+    if item1 == True and item1 == item2:
+        both += 1
+    elif item1 == True:
+        mod_plots += 1
+    elif item2 == True:
+        prem_plots += 1
+    else:
+        pass
+'''----------------novo konec---------------------'''
 # Simple User Interface over the console
 """Liams functions -----------------------------------------------------------"""
 
@@ -221,12 +238,57 @@ def daily_data():
         else:
             print('Invalid command, try again!')
 
-
+'''----------------------------novo------------------------------------------'''
 def user_data():
     """ To je tvoje burek, ..."""
-    print("User data ...... to do ")
-    pass
+    print(".\n" * 20)
+    print("Daily data: \n" +
+          "Here's a quick description of how the data was collected, using the python Reddit API Praw.\n" +
+          "Using a program that went through a list of usernames, we extracted relevant data\n" +
+          "used for analysis, which is represented here. It is stored in 2 different directories,\n" +
+          "namely the data used for a histogram and a graph of comments by months, and another directory" +
+          "which contains data used for plotting a graph of relations, what some users of certain subreddits \n" +
+          "have in common with each other.\n" +
+          "Warning!\n" +
+          "The data extracted is representative, as it does not contain all of the users of a subreddit. \n" +
+          "That would be time consuming.\n")
 
+    while True:
+        print("\n\nCurrently in: User data\n")
+        # Instructions
+        print("Here are some commands to navigate through the analysis:\n")
+        print("Command         Description")
+        print("_" * 80)
+        print("list                  ...     To display all of the subreddits used in the analysis.\n" +
+              " 0                    ...     Go back.\n" +
+              "exit                  ...     Exit to the first page.\n" +
+              "mod_premium           ...     Graphs a percent histogram of number of mods and users with premium\n" +
+              "all_mp                ...     All users used in histogram\n" +
+              "posts_month           ...     Graph of posts by month\n" +
+              "list_month            ...     List of posts by month\n" +
+              "relation_graph        ...     Displays a graph of relations between users and select subreddits\n")
+        user_input = input()
+
+        if user_input == "list":
+            list_of_subreddits()
+        elif user_input == '0':
+            break
+        elif user_input == 'exit':
+            return True
+        elif user_input == "mod_premium":
+            histogram(mod_plots, prem_plots, both)
+        elif user_input == 'all_mp':
+            all_users(data_histo)
+        elif user_input == 'list_month':
+            posts_month(data_histo)
+        elif user_input == "posts_month":
+            graph(data_histo)
+        elif user_input == "relation_graph":
+            return None
+        else:
+            print('Invalid command, try again!')
+
+'''---------------------------novo_konec----------------------------------------------'''
 
 def main():
     """ Main function with the main loop,
