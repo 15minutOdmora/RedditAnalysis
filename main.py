@@ -41,13 +41,13 @@ def list_of_subreddits():
     print(".\n" * 20)
     print("\n\nCurrently in: Daily data / list\n")
 
-    print("Subreddits are separated in different categories:\n" +
-          "normal: List of the top {} normal(sfw) subreddits.\n".format(len(dict_of_subs["normal"])) +
-          "nsfw:   List of the top {} nsfw subreddits.\n".format(len(dict_of_subs['nsfw'])) +
+    print("Subreddits are separated in these categories:\n" +
+          "normal: List of the top {} normal(sfw) subreddits by number of subscribers.\n".format(len(dict_of_subs["normal"])) +
+          "nsfw:   List of the top {} nsfw subreddits by number of subscribers.\n".format(len(dict_of_subs['nsfw'])) +
           "europe: List of {} european subreddits.\n".format(len(dict_of_subs['europe'])) +
           "usa:    List of {} american subreddits.(Yes, not just from the USA as the name would imply).\n".format(len(dict_of_subs['usa'])))
     while True:
-        print("Type in the name of the category of which lists you would like to display!\n" +
+        print("Type in the name of the category of the list you would like to display!\n" +
               "To exit type in 0.")
         group = input()
         if group in dict_of_subs:
@@ -68,7 +68,7 @@ def post_upvotes():
     print(".\n" * 20)
     while True:
         print(".\n"*20)
-        print("Displays the post frequency per hour and the average upvotes per hour\n")
+        print("Displays the frequency of posts per hour and the average upvotes per hour.\n")
         print("If you would like to include all of the data from a specific group of subreddits, type in one of the following:\n" +
               "- normal\n- nsfw\n- europe\n- usa")
         print("If you would like to include data from only one specific subreddit type in:\n- subreddit")
@@ -93,22 +93,24 @@ def post_upvotes():
                 else:
                     print("I could not find the data for the sub {} maybe try again?".format(name))
 
-def upv_to_cooment():
+
+def upv_to_comment():
     """Displays a scatter plot of upvotes in relation to comments, coloring indicates the ud_ratio"""
     print(".\n" * 20)
     while True:
+        print("Currently in: Daily data / upv_to_comment")
         # Description and commands
         print("Displays comments in relation to upvotes in a scatter plot, goes over all of the submissions to create" +
-              " the dots, coloring is used to show the upvote percentage.\n")
+              " the dots,\n coloring is used to show the upvote/downvote ratio" +
+              "(The percentage of upvotes from all votes on the submission).\n")
         print("If you would like to include all of the data from a specific" +
               " group of subreddits, type in one of the following:\n" +
               "- normal\n- nsfw\n- europe\n- usa")
         print("If you would like to include data from only one specific subreddit type in:\n- subreddit")
-        print("If you would like to look at the data from all the subreddits type in\n- all\n")
+        print("If you would like to look at the data from all the subreddits type in:\n- all\n")
         user_input = input()
         if user_input == '0':
             break
-
         # Set the log scale
         print("Would you like the axes to be in a logarithmic scale?(Recommended as the data is uhh...scattered.)\n" +
               "Type in yes or no.")
@@ -122,6 +124,7 @@ def upv_to_cooment():
                 log_scale = False
         # If its in the group just display it
         if user_input in ['normal', 'nsfw', 'europe', 'usa', 'all']:
+            print("This might take a few seconds...")
             an.scatter_plot_upv_com_ud(user_input, log_scale=log_scale)
         # If it's a specific subreddit ask for the name
         elif user_input == 'subreddit':
@@ -201,13 +204,14 @@ def sub_ranking():
                 print("The subrreddits in different categories are sorted in a few ways shown below. Thype in the command" +
                       " that you would like to sort by:\n")
                 print("   Command                       Description")
-                print("- s_avg_comments             ... Sorted by the average numer of comments.\n")
-                print("- s_avg_upvotes              ... Sorted by the average numer of upvotes.\n")
-                print("- s_avg_ud_ratio             ... Sorted by the average upvote/downvote ratio.\n")
-                print("- s_avg_uc_ratio             ... Sorted by the average upvote/comment ratio.\n")
-                print("- s_awards                   ... Sorted by the amount of awards or coins worth.\n")
-                print("- s_topcomupv_to_upv         ... Sorted by the average top_comment/post_upvotes ratio.\n")
-                print("- s_topcomupv_to_2topcomupv  ... Sorted by the average top_comment_upvotes/2.top_comment_upvotes\n")
+                print("- s_avg_comments             ... Sorted by the average number of comments.")
+                print("- s_avg_upvotes              ... Sorted by the average number of upvotes.")
+                print("- s_avg_ud_ratio             ... Sorted by the average upvote/downvote ratio" +
+                      "(The percentage of upvotes from all votes on the submission).")
+                print("- s_avg_uc_ratio             ... Sorted by the average upvote/comment ratio.")
+                print("- s_awards                   ... Sorted by the amount of awards or coins worth.")
+                print("- s_topcomupv_to_upv         ... Sorted by the average top_comment_upvotes/post_upvotes ratio.")
+                print("- s_topcomupv_to_2topcomupv  ... Sorted by the average top_comment_upvotes/2nd_top_comment_upvotes ratio")
                 commands = ["s_avg_comments", "s_avg_upvotes", "s_avg_ud_ratio", "s_avg_uc_ratio",
                             "s_awards", "s_topcomupv_to_upv", "s_topcomupv_to_2topcomupv"]
                 user_command = input()
@@ -259,12 +263,12 @@ def stats_display(name, data, s_deviation):
         print("A total of {} silver awards, {} gold awards and {} platinum awards were given.".format(silver, gold, plat))
         print("The total worth of those awards adds up to {} coins.".format(coins))
         print("\n")
-        print("A submission recieves: - around {} upvotes on average, with a standard deviation of {}".format(avg_upvotes,
-                                                                                                              dev_upvotes))
-        print("                       - around {} comments on average, with a standard deviation of {}".format(avg_comments,
-                                                                                                               dev_comments))
+        print("A submission recieves: - around {} upvotes on average,".format(avg_upvotes) +
+              " with a standard deviation of {}".format(round(dev_upvotes, 2)))
+        print("                       - around {} comments on average,".format(avg_comments) +
+              " with a standard deviation of {}".format(round(dev_comments,2)))
         print("                       - and has the average upvote/downvote ratio of {} ".format(avg_ud) +
-              "with a standard deviation of {}".format(dev_ud_ratio))
+              "with a standard deviation of {}".format(round(dev_ud_ratio, 2)))
         print("\n Type in anything to exit back.")
         input()
         break
@@ -328,12 +332,12 @@ def daily_data():
         print("Here are some commands to navigate through the analysis:\n")
         print("Command         Description")
         print("_" * 80)
-        print("list                  ...     To display all of the subreddits used in the analysis.\n" +
+        print("list                  ...     Displays all of the subreddits used in the analysis.\n" +
               " 0                    ...     Go back.\n" +
               "post_upvotes          ...     Graphs out the post frequency and average upvotes of subs. or group of subs.\n" +
-              "compare_post_upvotes  ...     Similar to post_upvotes except it compares two different ones.\n" +
-              "upv_to_comment        ...     Displays a scatter plot of comments in relation to upvotes\n" +
-              "sub_ranking           ...     Displays bar charts of subreddits ranked by different parameters\n" +
+              "compare_post_upvotes  ...     Similar to post_upvotes except it compares between two subs. or group of subs.\n" +
+              "upv_to_comment        ...     Displays a scatter plot of comments in relation to upvotes.\n" +
+              "sub_ranking           ...     Displays bar charts of subreddits ranked by different parameters.\n" +
               "stats                 ...     Prints out some basic statistics.")
         user_input = input()
 
@@ -346,7 +350,7 @@ def daily_data():
         elif user_input == "post_upvotes":
             post_upvotes()
         elif user_input == "upv_to_comment":
-            upv_to_cooment()
+            upv_to_comment()
         elif user_input == "compare_post_upvotes":
             compare_post_upvotes()
         elif user_input == "sub_ranking":
@@ -424,7 +428,7 @@ def main():
         print("Hello and welcome to the Reddit Analysis.\n" +
               "This user interface was made to simplify the navigation through data and data display. \n\n" +
               "We sort the data into two parts:\n\n" +
-              "1. Daily data, were the data was collected from 238 different subreddits in 11 consecutive days\n" +
+              "1. Daily data, where the data was collected from 238 different subreddits in 11 consecutive days\n" +
               "2. User data, where ...")
         # Using the input to navigate to different functions
         leave = False

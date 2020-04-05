@@ -31,7 +31,7 @@ class Analysis:
         if where == 'data':  # Reads from the 'data' file
 
             if filter == 'all':  # Ads up all the lists from every subreddit from every day
-                for date in self.date_files[:2]:
+                for date in self.date_files:
                     for file in os.listdir(os.fsencode(self.data_files + r'\{}'.format(date))):
                         filename = os.fsdecode(file)
                         if filename.endswith(".json"):
@@ -130,17 +130,22 @@ class Analysis:
                     return self.sorted_data[filter][what1], self.sorted_data[filter][what1],\
                            self.sorted_data[filter][what1]
 
-    def meaning(self, shortcut):
-        """Returns the meaning of shortcuts"""
-        if shortcut in ['upvotes', 'comments']:
-            return shortcut
-        elif shortcut == 'number_of_submissions':
-            return 'Number of submissions'
-        elif shortcut == 'ud_ratio':
-            return 'Upvote/Downvote Ratio'
-        elif shortcut == 'uc_ratio':
-            return 'Upvote/Comment Ratio'
-        # todo add others
+    def meaning(self, sho):
+        """Returns the meaning of shortcuts(sho) used in bar charts"""
+        if sho == "s_avg_comments":
+            return "average number of comments"
+        elif sho == "s_avg_upvotes":
+            return "average number of upvotes"
+        elif sho == "s_avg_ud_ratio":
+            return "average upvote/downvote ratio"
+        elif sho == "s_avg_uc_ratio":
+            return "upvote/comment ratio"
+        elif sho == "s_topcomupv_to_upv":
+            return "number of upvotes of the top comment / number of upvotes on post"
+        elif sho == "s_topcomupv_to_2topcomupv":
+            return "number of upvotes of the top comment / number of upvotes on the 2nd top comment"
+        else:
+            return "error: No title"
 
     def scatter_plot_upv_com_ud(self, filter, specs=None, lin_regression=False, log_scale=False):
         """ PYPLOT:
@@ -149,6 +154,7 @@ class Analysis:
         # Use the search function to get all the data
         points = self.search(where='data', filter=filter,
                              what1='upvotes', what2='comments', what3='ud_ratio', specs=specs)
+        num_of_posts = len(points[0])
 
         # Set the log scaling to the axes if true
         if log_scale:
@@ -159,7 +165,7 @@ class Analysis:
 
         # Add a colorbar and set the label
         cbar = plt.colorbar()
-        cbar.set_label('Upvote/Downvote Ratio')
+        cbar.set_label('Upvote/Downvote ratio')
 
         # Zoom out
         plt.margins(5, 5)  # Nastavljeno za log scale
@@ -167,6 +173,11 @@ class Analysis:
         # Set labels
         plt.xlabel('Upvotes')
         plt.ylabel('Comments')
+        if filter == "specific_sub":
+            tit = "r/" + specs[0].upper() + specs[1:]
+        else:
+            tit = "the group " + filter[0].upper() + filter[1:]
+        plt.title("The relation of upvotes to comments in {}.\n Number of posts: {}".format(tit, num_of_posts))
 
         # Calculates and plots the lin. regression function if lin_regression is set to True
         if lin_regression:
@@ -177,7 +188,7 @@ class Analysis:
         plt.show()
 
     def plot_post_and_avgupv_freq(self, filter, specs=None):
-        #todo finish this function start over actually
+        """Plots the average upvotes per hour and post freq."""
         freq, upv = self.search('counted_data', what1="time_freq_hour", what2="time_freq_hour_upv",
                                 filter=filter, specs=specs)
         all_freq, all_upv = np.zeros((1, 24)), np.zeros((1, 24))
@@ -207,12 +218,13 @@ class Analysis:
         plt.style.use('ggplot')
         plt.subplot(211)
         plt.plot(x_axis, avg_upv[0], c='red')
-        plt.ylabel('Average Upvotes / Hour')
+        plt.title("Average post upvotes per hour and number of posts per hour\n(UTC)")
+        plt.ylabel('Average number of upvotes')
 
         plt.subplot(212)
         plt.plot(x_axis, all_freq[0], c='blue')
-        plt.ylabel('Posts / Hour')
-
+        plt.ylabel("Number of posts")
+        plt.xlabel("Hour")
         plt.show()
 
 
@@ -274,18 +286,25 @@ class Analysis:
         # Use subplots
         fig, axs = plt.subplots(2, 2)
         axs[0, 0].plot(hours, avg_upv1[0])  # Upper left plot
-        axs[0, 0].set_title('{} average upvotes per hour'.format(name1))
+        axs[0, 0].set_title('{}'.format(name1))
         axs[0, 1].plot(hours, avg_upv2[0], 'tab:orange')  # Upper right plot
-        axs[0, 1].set_title('{} average upvotes per hour'.format(name2))
+        axs[0, 1].set_title('{}'.format(name2))
         axs[1, 0].plot(hours, post_freq1[0], 'tab:green')  # Bottom left plot
-        axs[1, 0].set_title('{} posts in spec. hour'.format(name1))
+        #axs[1, 0].set_title('{}\n Number of posts per hour'.format(name1))
         axs[1, 1].plot(hours, post_freq2[0], 'tab:red')  # Bottom right plot
-        axs[1, 1].set_title('{} posts in spec. hour'.format(name2))
+        #axs[1, 1].set_title('{}\n Number of posts per hour'.format(name2))
 
         # Set the labels
+        counter = 0
         for ax in axs.flat:
-            ax.set(xlabel='x-label', ylabel='y-label')
+            if counter == 0:
+                ax.set(xlabel='0', ylabel='Average upvotes per hour')
+            elif counter == 2:
+                ax.set(xlabel='Hour', ylabel='Number of posts per hour')
+            elif counter == 3:
+                ax.set(xlabel='Hour', ylabel='3')
 
+            counter += 1
         # Hide x labels and tick labels for top plots and y ticks for right plots.
         for ax in axs.flat:
             ax.label_outer()
@@ -295,7 +314,6 @@ class Analysis:
     def sorted_bar_chart(self, filter, what, top, specs=None):
         """ METHOD:
         Displays sorted bar-charts of subs. ranked by different categories """
-        #todo uredit sirine barov, y-os, awards ...
         data = self.search(where='analysed_data', filter=filter, what1=what)
         if what == 's_awards':
             if specs == 'platinum':
@@ -307,10 +325,10 @@ class Analysis:
 
             # title text and label text
             if specs == 'coins':
-                title_text = "All rewards recieved in coins worth for each {} subreddit in a 10 day period".format(filter)
+                title_text = "All rewards recieved in coins worth for each {} subreddit in a 11 day period".format(filter)
                 label_text = "Number of coins worth"
             else:
-                title_text = "All {} awards recieved for each {} subreddit in a 10 day period".format(specs, filter)
+                title_text = "All {} awards recieved for each {} subreddit in a 11 day period".format(specs, filter)
                 label_text = "Number of {} awards".format(specs)
 
             specs_dict = {'silver': 0, 'gold': 1, 'platinum': 2, 'coins': 3}
@@ -347,7 +365,7 @@ class Analysis:
             # Setting the numbers on bars
             """for i, v in enumerate(sub_data[::-1]):
                 plt.text(10, 2*i +1.4, str(round(v)), color='white', fontsize=7)"""
-
+            plt.title("Top {} subreddits from the category {}\n ranked by {}".format(top, filter, self.meaning(what)))
             plt.show()
 
     def number_of_submissions_prediction(self):
@@ -406,12 +424,12 @@ class Analysis:
                                                 specs=specs)
             return num_sub, com, upv, ud, awards, title_len[0]
 
-an = Analysis(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis')
+#an = Analysis(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis')
 #an.sorted_bar_chart(filter='europe', what='s_awards', top=13, specs='coins')
 # an.scatter_plot_upv_com_ud(filter='specific_sub',specs=['askmen'], log_scale=True)
 #an.plot_post_and_avgupv_freq(filter="specific_sub", specs="askreddit")
 # an.compare_plots_post_avgupv_freq(filter1='europe', filter2='usa', what1='time_freq_hour', what2='time_freq_hour_upv')
 # "All rewards recieved in coins worth for each 'nsfw' subreddit in a 10 day period"
-print(an.stats(filter="specific_sub", specs="aww"))
+#print(an.stats(filter="specific_sub", specs="aww"))
 if __name__ == '__main__':
     pass
