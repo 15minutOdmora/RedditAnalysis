@@ -2,7 +2,7 @@ import json
 import os
 
 from analysis import Analysis
-from user_plots import histogram, all_users, graph, posts_month
+from user_plots import histogram, all_users, graph, posts_month, top_14_plot
 '''------------------novo---------------'''
 
 # Get the current directory and initialize the analysis class as an.
@@ -16,7 +16,7 @@ for key, value in dict_of_subs.items():
     for sub in value:
         list_of_subs.append(sub[0].lower())
 '''-------------------novo----------------------------'''
-# Data for user histogram and graph
+# Preloads and sorts data to be used in plotting a histogram
 with open('non_relational', 'r') as fp:
     data_histo = json.load(fp)
 data_histo['po_mont'].remove(0)
@@ -30,6 +30,8 @@ for item1, item2 in zip(data_histo['is_mod'], data_histo['is_premium']):
         prem_plots += 1
     else:
         pass
+
+top_14_data = json.load(open('top_14', 'r')) # preloads data for ease of access
 '''----------------novo konec---------------------'''
 # Simple User Interface over the console
 """Liams functions -----------------------------------------------------------"""
@@ -181,18 +183,6 @@ def compare_post_upvotes():
                                                   what1='time_freq_hour', what2='time_freq_hour_upv',
                                                   specs1=sub1, specs2=sub2)
 
-"""-----------------------------------------------------------------------------"""
-
-
-
-"""Bureks functions-------------------------------------------------------------"""
-
-
-
-"""-----------------------------------------------------------------------------"""
-
-
-
 
 def daily_data():
     # Introduction
@@ -240,7 +230,7 @@ def daily_data():
 
 '''----------------------------novo------------------------------------------'''
 def user_data():
-    """ To je tvoje burek, ..."""
+    """ Interface for user data"""
     print(".\n" * 20)
     print("Daily data: \n" +
           "Here's a quick description of how the data was collected, using the python Reddit API Praw.\n" +
@@ -266,6 +256,7 @@ def user_data():
               "all_mp                ...     All users used in histogram\n" +
               "posts_month           ...     Graph of posts by month\n" +
               "list_month            ...     List of posts by month\n" +
+              "top_14                ...     Bar chart of top 14 other visited subreddits from select subreddits\n" +
               "relation_graph        ...     Displays a graph of relations between users and select subreddits\n")
         user_input = input()
 
@@ -281,6 +272,13 @@ def user_data():
             all_users(data_histo)
         elif user_input == 'list_month':
             posts_month(data_histo)
+        elif user_input == 'top_14':
+            print('Choose among the next subreddits:', '\n', list(top_14_data.keys()))
+            user_input = input()
+            if user_input not in list(top_14_data.keys()):
+                print('This is not an option.')
+            else:
+                top_14_plot(user_input)
         elif user_input == "posts_month":
             graph(data_histo)
         elif user_input == "relation_graph":
@@ -299,8 +297,8 @@ def main():
         print("Hello and welcome to the Reddit Analysis.\n" +
               "This user interface was made to simplify the navigation through data and data display. \n\n" +
               "We sort the data into two parts:\n\n" +
-              "1. Daily data, were the data was collected from 238 different subreddits in 11 consecutive days\n" +
-              "2. User data, where ...")
+              "1. Daily data, where the data was collected from 238 different subreddits in 11 consecutive days\n" +
+              "2. User data, where data was collected from a list of users, generated from Daily data gathering")
         # Using the input to navigate to different functions
         leave = False
         while True:
