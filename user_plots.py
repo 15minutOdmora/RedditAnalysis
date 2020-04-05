@@ -19,7 +19,7 @@ def top_14_plot(key):
 def histogram(mod_plots, prem_plots, both):
     '''This function creates a histogram for premium and mod, percentwise'''
     percent = 100/len(data['is_premium'])
-    histo = [prem_plots*percent, mod_plots*percent, (len(data['is_premium']) - prem_plots - mod_plots
+    histo = [prem_plots*percent, mod_plots*percent, (len(data['is_premium']) - prem_plots - mod_plots - both
                                                                    )*percent, both*percent, ]
 
     plt.figure(figsize=(15,7))
