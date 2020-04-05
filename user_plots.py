@@ -7,6 +7,7 @@ def histogram(mod_plots, prem_plots, both):
     percent = 100/len(data['is_premium'])
     histo = [prem_plots*percent, mod_plots*percent, both*percent, (len(data['is_premium']) - prem_plots - mod_plots
                                                                    )*percent]
+    #ss
     plt.figure(figsize=(15,7))
     plt.bar(['Users with premium', 'Users that are mods', 'Users that are mods and have premium', 'All users'], histo)
     plt.show()
