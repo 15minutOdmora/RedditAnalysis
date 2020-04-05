@@ -10,6 +10,7 @@ def histogram(mod_plots, prem_plots, both):
     #ss
     plt.figure(figsize=(15,7))
     plt.bar(['Users with premium', 'Users that are mods', 'Normal users', 'Users that are mods and have premium'], histo)
+    plt.ylabel('Percent of users')
     plt.show()
 
 def all_users(data):
