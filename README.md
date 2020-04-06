@@ -58,8 +58,18 @@ V mapi **secondary** se nahajajo vsi programi, ki so bili uporabljeni za zbiranj
 - matplotlib
 
 ## Analiza
-### Ali čas objave vpliva na uspešnost le te?
+### Ali ura objave vpliva na uspešnost le te?
+Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid objave si interpretiramo z njeno uspešnostjo, le to se meri z številom upvotes. Tako je naprimer objava, ki je v celoti prejela 20 'upvotes' manj uspešna, kot nekatera druga, ki jih je prejela 1000+. Na Redditu lahko opazimo, da je število uspešnih objav majhno v primerjavi z ne uspešnimi. Za tem verjetno leži algoritem sortiranja, to gre nekako po skupinah(new, rising, hot), najbolše objave se premikajo po le teh, vendar le naj uspešnejše se premaknejo v naslednjo. V vsaki skupini se tako objava prikaže vedno večjemu številu ostalih uporabnikov, ter ima tako možnost prejeti več upvotes.
 
+No, če se vrnemo k vprašanju. Zbrali smo podatke o urah vseh objav, prav tako smo si shranili tudi uspešnosti('upvotes'). 
+Spodaj sta prikazana dva grafa. Na zgornjem je povprečno število uspešnosti objave, ki je bila objavljena v določeni uri. V spodnjem pa število objav v posamezni uri izmed vseh 
+ 
+![slika1](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/post_upvotes_all.png)
+
+Opazimo, da grafa nista linearna, prav tako bomo kasneje pokazali, da sta si verjetno odvisna.
+Če se osredotočimo na spodnji graf:
+Predpostavimo, da število objav narašča z številom uporabnikov, ki se v določeni uri nahajajo na spletni strani. To bi verjetno držalo, saj v primeru, da je več uporabnikov na strani jih tako tudi več poda objavo.
+Opazimo dva vrhova in dve dolini. Tako je v določenih urah več uporabnikov, kot v ostalih. Npr. okoli 15h in med 20h - 3h je tako veliko več uporabnikov, kot v ostalih urah. Iz zbranih podatkov težko predpostavimo zakaj bi bilo tako. Zato bomo v prihodnje primerjali med različnimi skupinami podbralnikov.
 
 
 
