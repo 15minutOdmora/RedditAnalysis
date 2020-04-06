@@ -2,9 +2,9 @@ import json
 import os
 import time
 from analysis import Analysis
-from user_plots import histogram, all_users, graph, posts_month, top_14_plot
-'''------------------novo---------------'''
+from user_plots import histogram, all_users, top_14_plot, general_commons
 
+"""Liams settings"""
 # Get the current directory and initialize the analysis class as an.
 dir_path = os.path.dirname(os.path.realpath(__file__))
 an = Analysis(dir_path)
@@ -15,13 +15,15 @@ list_of_subs = []
 for key, value in dict_of_subs.items():
     for sub in value:
         list_of_subs.append(sub[0].lower())
-'''-------------------novo----------------------------'''
+
+"""Gaspers settings"""
 # Preloads and sorts data to be used in plotting a histogram
 with open('non_relational', 'r') as fp:
     data_histo = json.load(fp)
-data_histo['po_mont'].remove(0)
+
 mod_plots, prem_plots, both = 0, 0, 0
 for item1, item2 in zip(data_histo['is_mod'], data_histo['is_premium']):
+    # checks if users have premium or are mods, or both
     if item1 == True and item1 == item2:
         both += 1
     elif item1 == True:
@@ -31,8 +33,14 @@ for item1, item2 in zip(data_histo['is_mod'], data_histo['is_premium']):
     else:
         pass
 
-top_14_data = json.load(open('top_14', 'r')) # preloads data for ease of access
-'''----------------novo konec---------------------'''
+top_14_data = json.load(open('top_14', 'r'))  # preloads data for ease of access
+# .json file contains data what other subreddits users post in
+# looks at specific subreddits
+common_connections = json.load(open('incommon_sort', 'r'))
+# preloads .json containing subreddits that some other subreddits have in common
+# and the number of times the connection appears between users
+
+
 # Simple User Interface over the console
 """Liams functions -----------------------------------------------------------"""
 
@@ -242,6 +250,7 @@ def sub_ranking():
         else:
             print("Incorrect input, maybe try again?")
 
+
 def stats_display(name, data, s_deviation):
     """ Prints the stats/data in a somewhat preety format, gets the data from the stats function in the analysis.py"""
     # Put the data into variables
@@ -272,6 +281,7 @@ def stats_display(name, data, s_deviation):
         print("\n Type in anything to exit back.")
         input()
         break
+
 
 def stats():
     """ Prints out some basic stats"""
@@ -360,7 +370,8 @@ def daily_data():
         else:
             print('Invalid command, try again!')
             time.sleep(2)
-'''----------------------------novo------------------------------------------'''
+
+
 def user_data():
     """ Interface for user data"""
     print(".\n" * 20)
@@ -383,41 +394,41 @@ def user_data():
         print("_" * 80)
         print("list                  ...     To display all of the subreddits used in the analysis.\n" +
               " 0                    ...     Go back.\n" +
-              "exit                  ...     Exit to the first page.\n" +
               "mod_premium           ...     Graphs a percent histogram of number of mods and users with premium\n" +
-              "all_mp                ...     All users used in histogram\n" +
-              "posts_month           ...     Graph of posts by month\n" +
-              "list_month            ...     List of posts by month\n" +
+              "all_mp                ...     Number of users used in histogram\n" +
               "top_14                ...     Bar chart of top 14 other visited subreddits from select subreddits\n" +
-              "relation_graph        ...     Displays a graph of relations between users and select subreddits\n")
+              "common                ...     Bar chart of top 10 incommon subreddits of select subreddits \n")
+
         user_input = input()
 
         if user_input == "list":
             list_of_subreddits()
         elif user_input == '0':
             break
-        elif user_input == 'exit':
-            return True
         elif user_input == "mod_premium":
             histogram(mod_plots, prem_plots, both)
         elif user_input == 'all_mp':
             all_users(data_histo)
-        elif user_input == 'list_month':
-            posts_month(data_histo)
+        elif user_input == 'common':
+            print('Enter a number corresponding to what histogram you would like to see:', '\n')
+            print('0: AdviceAnimals vs AnimalsBeingBros', '\n',
+                  '1: cats vs dankmemes', '\n',
+                  '2: gonewild vs atheism', '\n',
+                  '3: StarWars vs Art', '\n',
+                  '4: Sydney vs Germany', '\n',
+                  '5 : TittyDrop vs iphone')
+            user_input = input()
+            general_commons(common_connections[int(user_input)])
         elif user_input == 'top_14':
-            print('Choose among the next subreddits:', '\n', list(top_14_data.keys()))
+            print('Enter the name of the subreddit you wish to see:', '\n', list(top_14_data.keys()))
             user_input = input()
             if user_input not in list(top_14_data.keys()):
                 print('This is not an option.')
             else:
                 top_14_plot(user_input)
-        elif user_input == "posts_month":
-            graph(data_histo)
-        elif user_input == "relation_graph":
-            return None
         else:
             print('Invalid command, try again!')
-'''---------------------------novo_konec----------------------------------------------'''
+
 
 def main():
     """ Main function with the main loop,

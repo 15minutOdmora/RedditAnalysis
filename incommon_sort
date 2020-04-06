@@ -1,0 +1,83 @@
+[
+    [
+        "advice_bros1",
+        {
+            "aww": 56,
+            "AnimalsBeingBros": 53,
+            "AskReddit": 52,
+            "funny": 44,
+            "pics": 41,
+            "interestingasfuck": 38,
+            "gifs": 33,
+            "mildlyinteresting": 31,
+            "PublicFreakout": 30
+        }
+    ],
+    [
+        "cats_memes1",
+        {
+            "dankmemes": 553,
+            "memes": 450,
+            "AskReddit": 413,
+            "PewdiepieSubmissions": 307,
+            "teenagers": 239,
+            "Showerthoughts": 212,
+            "funny": 204,
+            "gaming": 198,
+            "wholesomememes": 166,
+            "Minecraft": 149
+        }
+    ],
+    [
+        "gw_atheism1",
+        {
+            "AskReddit": 153,
+            "politics": 100,
+            "worldnews": 89,
+            "news": 85,
+            "pics": 80,
+            "unpopularopinion": 73,
+            "todayilearned": 72,
+            "aww": 66,
+            "Showerthoughts": 57
+        }
+    ],
+    [
+        "swhores_art1",
+        {
+            "Art": 575,
+            "AskReddit": 270,
+            "pics": 218,
+            "drawing": 213,
+            "funny": 161,
+            "aww": 127,
+            "painting": 112,
+            "mildlyinteresting": 106,
+            "oddlysatisfying": 96
+        }
+    ],
+    [
+        "syd_germoney1",
+        {
+            "AskReddit": 62,
+            "worldnews": 30,
+            "europe": 26,
+            "todayilearned": 20,
+            "pics": 19,
+            "unpopularopinion": 18,
+            "politics": 17
+        }
+    ],
+    [
+        "tt_iphone1",
+        {
+            "AskReddit": 20,
+            "apple": 14,
+            "pics": 13,
+            "worldnews": 12,
+            "Showerthoughts": 11,
+            "memes": 10,
+            "movies": 9
+        }
+    ]
+]
