@@ -24,9 +24,21 @@ In sicer sva jih ločila na 4 skupine:
 - nsfw, najbolših 21 "nsfw"(not safe for work) podbralnikov, večinoma gre tle za podbrlnike, ki prikazujejo goloto.
 - europe, naključno izbranih 15 podbralnikov evropskih držav.
 - usa, najbolših 24 podbralnikov po številu sledilcev Severno Ameriških držav(kljub temu, da piše "usa").
+Skupno je tako bilo dnevno pregledanih 238 podbralnikov, število objav je variralo za posamezen podbralnik vse med 0 in 100. 
+Po enajstih dnevih je bilo prebranih skupno 126,093 objav, kar je približno 11,463 na dan. 
 
 Tako sva program imenovan reading_daily_data.py pognala 11 dni zapored ob približno enaki uri. Ta je nato za vsak podbralnik iz omenjenih skupin prebral podatke od do 100 najbolših objav iz preteklih 24 ur. Kot zanimivost je to v povprečju trajalo približno 2 uri. 
 Ker razni podbrlniki prejmejo dnevno več kot 1000 objav, ni bilo mogoče prebrati vseh. Tako ne predstavljajo vsi podatki celotne 'populacije'.
+
+Pri dnevnem prebiranju podatkov smo za posamezno objavo prebrali in shranili naslednje podatke:
+- število 'upvotes'
+- število komentarjev
+- čas objave
+- dolžina naslova objave(V besedah in znakih).
+- ime avtorja(username), kasneje uporabljeni pri User data.
+- upvote downvote ratio (Procent števila 'upvotes' v primerjavi z vsemi ocenami, torej z 'downvotes').
+- število prejetih nagrad(awards).
+- število 'upvotes' 10 naj boljših komentarjev.
 
 ### User data 
 ...
@@ -46,6 +58,8 @@ V mapi **secondary** se nahajajo vsi programi, ki so bili uporabljeni za zbiranj
 - matplotlib
 
 ## Analiza
+### Ali čas objave vpliva na uspešnost le te?
+
 
 
 
