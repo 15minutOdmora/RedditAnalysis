@@ -101,6 +101,11 @@ V naslednjih grafih je posamezna pika ena objava, na y-osi je predstavljeno njen
 #### Podbralniki iz skupine normal. 
 Veliko raznolikosti v delovanju določenih podbralnikov, vendar nam še vedno poda nekaj informacij.
 ![slika4](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_normal.png)
+Opazimo obliko, število komentarjev narašča z številom 'upvotes'. To lahko zasledimo že z gledanjem objav na Redditu, ko objavo vidi več uporabnikov, tako prejme več 'upvote'ov in hkrati več komentarjev. 
+
+Zasledimo tudi obarvanost, na levi strani, kjer so objave z manjšim številom komentajev/'upvote'ov so bolj obarvane zeleno. Kar pomeni ,da imajo slabši 'ud ratio'. To pripisujemo k algoritmom sortiranja objav na Redditu. Objave z slabšim 'ud ratio'm so ponavadi slabše in jih tako ne vidi veliko oseb, ker se ne premikajo po skupinah sortiranja(new, rising, hot...).
+
+
 
 
 
