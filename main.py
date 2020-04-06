@@ -397,7 +397,7 @@ def user_data():
               "mod_premium           ...     Graphs a percent histogram of number of mods and users with premium\n" +
               "all_mp                ...     Number of users used in histogram\n" +
               "top_14                ...     Bar chart of top 14 other visited subreddits from select subreddits\n" +
-              "common                ...     Bar chart of top 10 incommon subreddits of select subreddits \n")
+              "common                ...     Bar chart of top 10 in common subreddits of select subreddits \n")
 
         user_input = input()
 
@@ -416,7 +416,7 @@ def user_data():
                   '2: gonewild vs atheism', '\n',
                   '3: StarWars vs Art', '\n',
                   '4: Sydney vs Germany', '\n',
-                  '5 : TittyDrop vs iphone')
+                  '5: TittyDrop vs iphone')
             user_input = input()
             general_commons(common_connections[int(user_input)])
         elif user_input == 'top_14':
