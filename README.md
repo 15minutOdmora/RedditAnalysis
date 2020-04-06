@@ -139,6 +139,10 @@ Podbralnik je namenjen političnim novicam in mnenjem.
 
 Dokaj linearna oblika, komentarji naraščajo z številom 'upvotes', vendar jih je nekoliko več, kot pri normalnih podbralnikih. Vidimo tudi nekaj pik(ojav), ki odstopajo, tam se je verjetno v komentarjih razvilo, kar nekaj pogovorov glede na naravo podbralnika. 
 
+#### Zaključek 
+
+Pri vseh zgoraj prikazanih grafih lahko zasledimo, da so bolj obarvani zeleno(sllabše ocenjeni) na levi strani, ter, da so ponavadi objave z več komentarji slabše ocenjene. To si lahko razlagamo s tem, da kontroverzne objave sprožijo več različnih menenj in so tako uporabniki bolj nagnjeni h komentiranju. 
+
 
 
 
