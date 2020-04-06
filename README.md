@@ -71,5 +71,21 @@ Opazimo, da grafa nista linearna, prav tako bomo kasneje pokazali, da sta si ver
 Predpostavimo, da število objav narašča z številom uporabnikov, ki se v določeni uri nahajajo na spletni strani. To bi verjetno držalo, saj v primeru, da je več uporabnikov na strani jih tako tudi več poda objavo.
 Opazimo dva vrhova in dve dolini. Tako je v določenih urah več uporabnikov, kot v ostalih. Npr. okoli 15h in med 20h - 3h je tako veliko več uporabnikov, kot v ostalih urah. Iz zbranih podatkov težko predpostavimo zakaj bi bilo tako. Zato bomo v prihodnje primerjali med različnimi skupinami podbralnikov.
 
+Če primerjamo obe 'krivulji' v določeni uri, prikazano odspodaj:
+
+![slika2](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/post_upvotes_all_1.png)
+
+Med 10. in 11. uro (zelena navpična črta) so objave povprečno prejele več 'upvotes'. Opazimo, da jo to ravno pred porastom števila uporabnikov. To si lahko logično razlagamo, ob tisti uri število uporabnikov narašča. Objave, ki so bile takrat objavljene tako vidi več oseb in jim tako ahko več oseb dodeli 'upvote'. To seveda velja v povprečju, objava mora ne glede na to še vedno biti kvalitetna. 
+Če pogledamo rdečo navpično črto opazimo, da objave objavljene v tisti uri povprečno prejmejo manj 'upvotes', saj se število uporabnikov in s tem posledično vidljivost objave drastično zmanjša. Tako lahko zaključimo, da čas objave vpliva na njeno uspešnost.
+
+### Zakaj se število uporabnikov tako razlikuje? 
+Ker je Reddit svetovno znana spletna stran, nam prejšnji graf v relaciji z časom pri tem ne pomaga. Ker smo skupine delili v skupine lahko tako primerjamo podbralnike dveh različnih, skupin.
+
+Tako bomo primerjali med podbralniki Evropskih držav in Severno Ameriških.
+
+
+
+
+
 
 
