@@ -22,8 +22,8 @@ class Analysis:
 
     def search(self, where, filter, what1, what2=None, what3=None, specs=None):
         """FUNCTION:
-        Searches for the 'what' data in the 'where' data group, adds them up in lists, returs a touple(or triple) of lists
-        where = 'data', 'counted_data', 'analysed_data'
+        Searches for the 'what' data in the 'where' data group, adds them up in lists, returs a touple(or triple) of
+        lists where = 'data', 'counted_data', 'analysed_data'
         what1, what2, what3 = depends where we search.
         specs = are only used if we want a speciffic sub. """
         data1, data2, data3 = [], [], []
@@ -44,7 +44,7 @@ class Analysis:
                 return data1, data2, data3
 
             elif filter == 'specific_sub':  # Only adds up from the specific sub specs
-                for subname in specs:
+                for _ in specs:
                     for date in self.date_files:
                         for file in os.listdir(os.fsencode(self.data_files + r'\{}'.format(date))):
                             filename = os.fsdecode(file)
@@ -191,7 +191,7 @@ class Analysis:
         """Plots the average upvotes per hour and post freq."""
         freq, upv = self.search('counted_data', what1="time_freq_hour", what2="time_freq_hour_upv",
                                 filter=filter, specs=specs)
-        all_freq, all_upv = np.zeros((1, 24)), np.zeros((1, 24))
+        all_freq, all_upv = np.zeros((1, 25)), np.zeros((1, 25))
         if filter in ["specific_sub", "all"]:
             index = 0
             for number in freq[0]:
@@ -212,21 +212,30 @@ class Analysis:
                 for post in sub[0]:
                     all_upv[0, index] += post
                     index += 1
-        x_axis = np.array([x for x in range(1, 25)])
-        # avg_freq = np.array([all_freq[x]/24 for x in range(len(all_upv))])
-        avg_upv = np.array([all_upv[x]/all_freq[x] for x in range(len(all_upv))])
+
+        x_axis = np.array([x for x in range(0, 25)])
+        # connect the last number with the first one as they should be the same
+        ar = []
+        for x in range(25):
+            if x < 24:
+                ar.append(all_upv[0, x]/all_freq[0, x])
+            else:
+                ar.append(all_upv[0, 0]/all_freq[0, 0])
+        avg_upv = np.array(ar)
         plt.style.use('ggplot')
         plt.subplot(211)
-        plt.plot(x_axis, avg_upv[0], c='red')
+        plt.xlim(0, 24)
+        plt.plot(x_axis, avg_upv, c='red')
         plt.title("Average post upvotes per hour and number of posts per hour\n(UTC)")
         plt.ylabel('Average number of upvotes')
 
         plt.subplot(212)
+        plt.xlim(0, 24)
+        all_freq[0, 24] = all_freq[0, 0]
         plt.plot(x_axis, all_freq[0], c='blue')
         plt.ylabel("Number of posts")
         plt.xlabel("Hour")
         plt.show()
-
 
     def compare_plots_post_avgupv_freq(self, filter1, filter2, what1, what2, specs1=None, specs2=None):
         """ METHOD:
@@ -290,9 +299,7 @@ class Analysis:
         axs[0, 1].plot(hours, avg_upv2[0], 'tab:orange')  # Upper right plot
         axs[0, 1].set_title('{}'.format(name2))
         axs[1, 0].plot(hours, post_freq1[0], 'tab:green')  # Bottom left plot
-        #axs[1, 0].set_title('{}\n Number of posts per hour'.format(name1))
         axs[1, 1].plot(hours, post_freq2[0], 'tab:red')  # Bottom right plot
-        #axs[1, 1].set_title('{}\n Number of posts per hour'.format(name2))
 
         # Set the labels
         counter = 0
@@ -325,7 +332,8 @@ class Analysis:
 
             # title text and label text
             if specs == 'coins':
-                title_text = "All rewards recieved in coins worth for each {} subreddit in a 11 day period".format(filter)
+                title_text = "All rewards recieved in coins worth for each" + \
+                             " {} subreddit in a 11 day period".format(filter)
                 label_text = "Number of coins worth"
             else:
                 title_text = "All {} awards recieved for each {} subreddit in a 11 day period".format(specs, filter)
@@ -389,7 +397,6 @@ class Analysis:
             d_ud += (ud[i] - avg_ud)**2
         return math.sqrt(d_upv/(length-1)), math.sqrt(d_com/(length-1)), math.sqrt(d_ud/(length-1))
 
-
     def stats(self, filter, specs=None):
         """ FUNCTION: returns a list of different stats from group/subreddit
         touple of averages: (sum_num_of_submissions, sum_number_comments,
@@ -424,12 +431,5 @@ class Analysis:
                                                 specs=specs)
             return num_sub, com, upv, ud, awards, title_len[0]
 
-#an = Analysis(r'C:\Users\laptop\Desktop\RedditAnalysis\RedditAnalysis')
-#an.sorted_bar_chart(filter='europe', what='s_awards', top=13, specs='coins')
-# an.scatter_plot_upv_com_ud(filter='specific_sub',specs=['askmen'], log_scale=True)
-#an.plot_post_and_avgupv_freq(filter="specific_sub", specs="askreddit")
-# an.compare_plots_post_avgupv_freq(filter1='europe', filter2='usa', what1='time_freq_hour', what2='time_freq_hour_upv')
-# "All rewards recieved in coins worth for each 'nsfw' subreddit in a 10 day period"
-#print(an.stats(filter="specific_sub", specs="aww"))
-if __name__ == '__main__':
-    pass
+
+#if __name__ == '__main__':
