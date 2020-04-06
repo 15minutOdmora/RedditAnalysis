@@ -376,15 +376,24 @@ def user_data():
     """ Interface for user data"""
     print(".\n" * 20)
     print("Daily data: \n" +
-          "Here's a quick description of how the data was collected, using the python Reddit API Praw.\n" +
-          "Using a program that went through a list of usernames, we extracted relevant data\n" +
-          "used for analysis, which is represented here. It is stored in 2 different directories,\n" +
-          "namely the data used for a histogram and a graph of comments by months, and another directory" +
-          "which contains data used for plotting a graph of relations, what some users of certain subreddits \n" +
-          "have in common with each other.\n" +
-          "Warning!\n" +
-          "The data extracted is representative, as it does not contain all of the users of a subreddit. \n" +
-          "That would be time consuming.\n")
+          "The data that is represented in the following histograms, was extracted from Reddit API Praws\n" +
+          "queries from Reddit user object instances. Through a sorting program called DailyUserdata, which\n" +
+          "received .json files of collected DailyData dumps, and then iterated through its 'usernames' list,\n" +
+          "the program created its own dictionary of data, which contained: user comment karma, user post karma,\n" +
+          "booleans of if user is a moderator or has premium, month and hour of posting last 100 comments, \n" +
+          "and all the subreddits the user submitted posts in, to which a frequency counter was appended. \n" +
+          "Other extracted data includes number of comments and post submission of the last 100 instances, \n" +
+          "number of submissions with over 1000 karma.\n" +
+          "The only data used in the end was frequency of posting, if the user is a moderator or has premium\n" +
+          "and names of subreddits most visited, where the frequency of posting tells us which ones are most visited.\n" +
+          "Description of histograms:\n" +
+          "1. Shows ratio of users who are moderators, have premium, are moderators with premium, and normal users.\n" +
+          "2. Shows what users of a specific subreddit visit besides the subreddit looked at, with a number that suggests\n" +
+          "popularity or frequency of posting/commenting in those subreddits.\n" +
+          "3. Shows what users of 2 different subreddits have most in common. Which other subreddits the users of seemingly" +
+          "opposing interests, both visit. Y-axis is the ocurrence of visits among them. X-axis are the subreddits the users\n" +
+          "looked at both visit or post/submit in.\n" +
+          "The second and third histogram are limited to so few subreddits, due to the time complexity of data extraction.\n")
 
     while True:
         print("\n\nCurrently in: User data\n")
@@ -392,10 +401,9 @@ def user_data():
         print("Here are some commands to navigate through the analysis:\n")
         print("Command         Description")
         print("_" * 80)
-        print("list                  ...     To display all of the subreddits used in the analysis.\n" +
-              " 0                    ...     Go back.\n" +
+        print(" 0                    ...     Go back.\n" +
               "mod_premium           ...     Graphs a percent histogram of number of mods and users with premium\n" +
-              "all_mp                ...     Number of users used in histogram\n" +
+              "all_mp                ...     Number of users used in histogram mod_premium\n" +
               "top_14                ...     Bar chart of top 14 other visited subreddits from select subreddits\n" +
               "common                ...     Bar chart of top 10 in common subreddits of select subreddits \n")
 
