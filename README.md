@@ -59,7 +59,7 @@ V mapi **secondary** se nahajajo vsi programi, ki so bili uporabljeni za zbiranj
 
 ## Analiza
 ### Ali ura objave vpliva na uspešnost le te?
-Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid objave si interpretiramo z njeno uspešnostjo, le to se meri z številom upvotes. Tako je naprimer objava, ki je v celoti prejela 20 'upvotes' manj uspešna, kot nekatera druga, ki jih je prejela 1000+. Na Redditu lahko opazimo, da je število uspešnih objav majhno v primerjavi z ne uspešnimi. Za tem verjetno leži algoritem sortiranja, to gre nekako po skupinah(new, rising, hot), najbolše objave se premikajo po le teh, vendar le naj uspešnejše se premaknejo v naslednjo. V vsaki skupini se tako objava prikaže vedno večjemu številu ostalih uporabnikov, ter ima tako možnost prejeti več upvotes.
+Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid objave si interpretiramo z njeno uspešnostjo, le to se meri z številom 'upvotes'. Tako je naprimer objava, ki je v celoti prejela 20 'upvotes' manj uspešna, kot nekatera druga, ki jih je prejela 1000+. Na Redditu lahko opazimo, da je število uspešnih objav majhno v primerjavi z ne uspešnimi. Za tem verjetno leži algoritem sortiranja, to gre nekako po skupinah(new, rising, hot), najbolše objave se premikajo po le teh, vendar le naj uspešnejše se premaknejo v naslednjo. V vsaki skupini se tako objava prikaže vedno večjemu številu ostalih uporabnikov, ter ima tako možnost prejeti večje število 'upvotes'.
 
 No, če se vrnemo k vprašanju. Zbrali smo podatke o urah vseh objav, prav tako smo si shranili tudi uspešnosti('upvotes'). 
 Spodaj sta prikazana dva grafa. Na zgornjem je povprečno število uspešnosti objave, ki je bila objavljena v določeni uri. V spodnjem pa število objav v posamezni uri izmed vseh 
@@ -93,6 +93,16 @@ To bi sicer malo težje dokazali, vendar lahko sklepamo:
 - Ponovno začne naraščati proti večeru, ko se večina ljudi poda v pojsteljo pred tem pa še malo pobrska po telefonu.
 
 ## Lastnosti različnih skupin podbralnikov
+Ogledali si bomo nekaj grafov razpršenosti objav. In sicer: števila komentarjev v odvisnosti od števila 'upvotes', z barvo je prikazan 'upvote/downvote ratio'(Procent števila 'upvotes' v primerjavi z vsemi ocenami, torej 'upvotes' + 'downvotes' in je med 0 in 1). Objave z velikimi števili komentarjev in 'upvotes' so uspešne in imajo ponavadi večji upvote/downvote ratio. 
+Ker imajo različne skupine/podbralniki različno število sledilcev se ne bomo osredotočali na velikosti prej omenjenih števil. 
+
+V naslednjih grafih je posamezna pika ena objava, na y-osi je predstavljeno njeno število komentarjev, na x-osi število upvotes z barvo pa njen 'upvote/downvote ratio'(večji je bolše je). Osi so podane logaritemsko(logaritmic scale), ker so podatki precej razpršeni.
+
+#### Podbralniki iz skupine normal. 
+Veliko raznolikosti v delovanju določenih podbralnikov, vendar nam še vedno poda nekaj informacij.
+![slika4](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_normal.png)
+
+
 
 
 
