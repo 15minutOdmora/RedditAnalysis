@@ -99,13 +99,26 @@ Ker imajo različne skupine/podbralniki različno število sledilcev se ne bomo 
 V naslednjih grafih je posamezna pika ena objava, na y-osi je predstavljeno njeno število komentarjev, na x-osi število upvotes z barvo pa njen 'upvote/downvote ratio'(večji je bolše je). Osi so podane logaritemsko(logaritmic scale), ker so podatki precej razpršeni.
 
 #### Podbralniki iz skupine normal. 
-Veliko raznolikosti v delovanju določenih podbralnikov, vendar nam še vedno poda nekaj informacij.
+Veliko raznolikosti v delovanju določenih podbralnikov iz te široke skupine, vendar nam še vedno poda nekaj informacij.
 ![slika4](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_normal.png)
+
 Opazimo obliko, število komentarjev narašča z številom 'upvotes'. To lahko zasledimo že z gledanjem objav na Redditu, ko objavo vidi več uporabnikov, tako prejme več 'upvote'ov in hkrati več komentarjev. 
 
 Zasledimo tudi obarvanost, na levi strani, kjer so objave z manjšim številom komentajev/'upvote'ov so bolj obarvane zeleno. Kar pomeni ,da imajo slabši 'ud ratio'. To pripisujemo k algoritmom sortiranja objav na Redditu. Objave z slabšim 'ud ratio'm so ponavadi slabše in jih tako ne vidi veliko oseb, ker se ne premikajo po skupinah sortiranja(new, rising, hot...).
 
+#### Podbralniki skupine nsfw
+V to skupino podbralnikov spadajo vsi tisti, ki niso primerni "za v javnost". Večinoma se tukaj objavlja pornografija pri nekaterih pa dekleta ali moški objavljajo svoje gole slike. 
 
+Če si ogledamo, kako bi zgledal graf razprešenosti:
+
+![slika5](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_nsfw.png)
+
+Zanimivo je bolj obarvan rumeno, kar pomeni, da so objave bolše ocenjene. Hkrati je tudi manj komentarjev, v primerjavi z katerimi drugimi skupinami, to se sicer ne vidi takoj, vendar če se ozremo na števila pri oseh to opazimo. 
+Zakaj je tako nebi mogel povedati z zagotovostjo, vendar sklepam, da osebe bolje sprejmejo goloto.
+
+#### Podbralniki različnih držav 
+
+![slika6](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_europe.png) ![slika7](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_usa.png)
 
 
 
