@@ -120,7 +120,24 @@ Zakaj je tako nebi mogel povedati z zagotovostjo, vendar sklepam, da osebe bolje
 
 ![slika6](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_europe.png) ![slika7](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_usa.png)
 
+Pojavita se dve 'veji'. Desna je predvsem normalna kot smo opazili do zdej. Leva pa nakazuje večje število komentarjev. Hkrati je vse skupaj obarvano bolj zeleno, kar pomeni, da so objave slabše ocenjene. To bi blo predvsem zato, ker se v takih podbralnikih večinoma objavlja razna uprašanja, politična mnenja ali novice. Pri tem je razlika v osebnih mnenjih velika, posledično več komentarjev in slabše ocene.
 
+#### Nekaj zanimivih oblik pri raznih podbralnikih 
+
+##### Askreddit
+Ta podbralnik je namenjem vprašanjem uporabnikov namenjenim ostalim uporabnicom. Tako je bolj zasnovan na komentarjih objav, kot pa na sami vsebini objav. Same objave zajemajo le eno vprašanje.
+
+![slika8](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_askreddit.png)
+
+Na levi strani vidimo velik 'skok' navzgor, to si lahko razložimo z tem, da je podbralnik bolj osredotočen na komentarje. Če si sam podbralnik ogledamo opazimo, da objave prvotno dobijo veliko koentarjev ter nato šele 'upvotes'. To bi razložilo tisti 'skok'. 
+
+##### Politics 
+
+Podbralnik je namenjen političnim novicam in mnenjem. 
+
+![slika9](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_politics.png)
+
+Dokaj linearna oblika, komentarji naraščajo z številom 'upvotes', vendar jih je nekoliko več, kot pri normalnih podbralnikih. Vidimo tudi nekaj pik(ojav), ki odstopajo, tam se je verjetno v komentarjih razvilo, kar nekaj pogovorov glede na naravo podbralnika. 
 
 
 
