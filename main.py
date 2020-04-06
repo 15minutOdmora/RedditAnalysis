@@ -392,7 +392,8 @@ def user_data():
           "popularity or frequency of posting/commenting in those subreddits.\n" +
           "3. Shows what users of 2 different subreddits have most in common. Which other subreddits the users of seemingly" +
           "opposing interests, both visit. Y-axis is the ocurrence of visits among them. X-axis are the subreddits the users\n" +
-          "looked at both visit or post/submit in.\n")
+          "looked at both visit or post/submit in.\n" +
+          "The second and third histogram are limited to so few subreddits, due to the time complexity of data extraction.\n")
 
     while True:
         print("\n\nCurrently in: User data\n")
