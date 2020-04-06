@@ -79,12 +79,20 @@ Med 10. in 11. uro (zelena navpična črta) so objave povprečno prejele več 'u
 Če pogledamo rdečo navpično črto opazimo, da objave objavljene v tisti uri povprečno prejmejo manj 'upvotes', saj se število uporabnikov in s tem posledično vidljivost objave drastično zmanjša. Tako lahko zaključimo, da čas objave vpliva na njeno uspešnost.
 
 ### Zakaj se število uporabnikov tako razlikuje? 
-Ker je Reddit svetovno znana spletna stran, nam prejšnji graf v relaciji z časom pri tem ne pomaga. Ker smo skupine delili v skupine lahko tako primerjamo podbralnike dveh različnih, skupin.
+Ker je Reddit svetovno znana spletna stran, nam prejšnji graf v relaciji z časom pri tem ne pomaga. Ker smo te delili v skupine lahko tako primerjamo podbralnike dveh različnih, skupin.
 
 Tako bomo primerjali med podbralniki Evropskih držav in Severno Ameriških.
 
+![slika3](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/compare_post_upvotes.png)
 
+Opazimo podobnost spodnjih 'krivulj', obe imata dva vrhova, in sicer enega malo večjega od drugega z edino razliko, da sta si med seboj zamaknjeni po času. Na sliki sicer ne piše vendar je čas podan po UTC. Vidimo, da je vrh pri Evropskih podbralnikih okoli 12. ure, pri Severno Ameriških pa okrog 20. ure. Torej se ujemata, saj je v Ameriki povprečno čas +8 UTC, v Evropi pa okrog 0 UTC. To pomeni, da vrhova nastaneta okrog kosila.
+Ker sta si zelo podobni lahko trdimo, da gre pri obeh za iste razloge rasti. 
+To bi sicer malo težje dokazali, vendar lahko sklepamo:
+- Število uporabnikov začne naraščati zjutraj, ko se večina uporabnikov zbudi.
+- Okoli kosila se število zmanjša, verjetno zaradi kosila.
+- Ponovno začne naraščati proti večeru, ko se večina ljudi poda v pojsteljo pred tem pa še malo pobrska po telefonu.
 
+## Lastnosti različnih skupin podbralnikov
 
 
 
