@@ -1,122 +1,65 @@
-# RedditAnalysis
-## Description of project: Analyzing different data from reddit
-to do
+# Reddit Analysis
+## Osnovna ideja projekta je uporabiti analizirane podatke za optimizacijo dodajanja objav.
 
-## Git hub commands
-[Basic writing and formatting in Github](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)
+## Na kratko o Redditu:
+Spletna platforma Reddit je sestavljena iz več podbralnikov, ki se delijo na teme (npr.
+politika, slike narave, "memes"...). 
+V vsak podbralnik lahko uporabniki deiljo objavo, na katero lahko komentirajo, ji dodelijo "upvote" ali "downvote". 
+Slednji predstavljajo sistem točkovanja uspešnosti objave. Glede na uspešnost objave, se te ločijo na naslednje kategorije; "new", "rising", "hot", "top". Vsaka objava se najprej pojavi v rubriki "new". Uspešnejše objave se premaknejo v rubriko "rising". 
+Iz tod se jih nato le peščica prebije do "hot". Vsak podbralnik ima nato še možnost sortiranja objav pod "top", kjer so le
+najuspešnejše objave vseh časov. Objave so lahko tudi nagrajene z "awards", za katere uporabniki plačajo.
+Uporabniki lahko nagradijo tudi komentarje drugih, ki so tudi točkovani z "upvotes"/"downvotes". Uporabniki
+glede na neke algoritme uspešnosti objave ali komentarjev nabirajo "karmo"(predstavljeno s
+številom/točkami) npr. 10 karme = malo, 200000 karme = dosti.
 
-In cmd: set the current directory(cd) to the working file connected to this repo.
-```
-git status                             # tells the status of the folder in the repo.
-git add 'filename'                     # adds the file 'filename' to the repo
-git commit -m 'change description'     # locks the changes of the file 'filename' 
-git push                               # pushes the changes to the github repo.
-git pull                               # pulls the changes from github into the cd
-```
+## Na kratko o poteku dela
+Celoten potek dela je potekal v angleškem jeziku, ter sva ga razdelila na dva dela:
+- Daily data (dnevni podatki), Liam Mislej.
+- User data (podatki zbrani iz raznih profilov), Gašper kovačič.
 
-## Json format 101
-On this project most data will be saved using dictionaries and lists saved as a .json file.
-```
-import json                            # comes with the python package
+### Daily data
+Ker se na Redditu dnevno pojavi na tisoče objav in nebi bilo mogoče vseh prebrati. Sva sestavla program, ki dnevno prebira razne objave iz različnih podbralnikov. Pred tem sva sestavila seznam podbralnikov, katere bova brala. 
+In sicer sva jih ločila na 4 skupine:
+- normal, najbolših 178 podbralnikov po število sledilcev.
+- nsfw, najbolših 21 "nsfw"(not safe for work) podbralnikov, večinoma gre tle za podbrlnike, ki prikazujejo goloto.
+- europe, naključno izbranih 15 podbralnikov evropskih držav.
+- usa, najbolših 24 podbralnikov po številu sledilcev Severno Ameriških držav(kljub temu, da piše "usa").
+Skupno je tako bilo dnevno pregledanih 238 podbralnikov, število objav je variralo za posamezen podbralnik vse med 0 in 100. 
+Po enajstih dnevih je bilo prebranih skupno 126,093 objav, kar je približno 11,463 na dan. 
 
-data = {'sub_name' : [1, 1, 1, 0]}     # dict(), list() are allowed
+Tako sva program imenovan reading_daily_data.py pognala 11 dni zapored ob približno enaki uri. Ta je nato za vsak podbralnik iz omenjenih skupin prebral podatke od do 100 najbolših objav iz preteklih 24 ur. Kot zanimivost je to v povprečju trajalo približno 2 uri. 
+Ker razni podbrlniki prejmejo dnevno več kot 1000 objav, ni bilo mogoče prebrati vseh. Tako ne predstavljajo vsi podatki celotne 'populacije'.
 
-with open('mydata.json', 'w') as f:    # Saving data
-    json.dump(data, f)
-    
-f = open('mydata.json')                # Reading data
-team = json.load(f)
-```
+Pri dnevnem prebiranju podatkov smo za posamezno objavo prebrali in shranili naslednje podatke:
+- število 'upvotes'
+- število komentarjev
+- čas objave
+- dolžina naslova objave(V besedah in znakih).
+- ime avtorja(username), kasneje uporabljeni pri User data.
+- upvote downvote ratio (Procent števila 'upvotes' v primerjavi z vsemi ocenami, torej z 'downvotes').
+- število prejetih nagrad(awards).
+- število 'upvotes' 10 naj boljših komentarjev.
 
-## HDF5
-The big dictionaries of data will be saved in a HDF5 format.
+### User data 
+...
+
+## Uporabljeni programi
+V repozitoriju se nahajata dve mapi: main in secondary.
+V mapi **main** so shranjeni vsi programi in razne datoteke, ki so potrebni za pogon programa main.py, z le tem si je mogoče ogledati vse prikazane grafe, histograme,... V programu je sestavljen enostaven uporabniški vmesnik, preko katerega je mogoče izrisati vse v nadalnem prikazane podatke. To je mogoče za prej omenjene skupine podbralnikov(normal, nsfw...), posamezne podbralnike ali pa za vse skupaj.
+V mapi **secondary** se nahajajo vsi programi, ki so bili uporabljeni za zbiranje in urejanje podatkov.
+
+## Uporabljene knjižnice:
+#### Niso potrebne za delovanje programa main.py:
+- praw (API za zbiranje podatkov iz Reddita)
+- prawcore
+#### So potrebni za delovanje programa main.py:
+- json
+- numpy
+- matplotlib
+
+## Analiza
+### Ali čas objave vpliva na uspešnost le te?
 
 
 
-## Praw: the python reddit API 
-### Initializing the API
-[Getting started](https://praw.readthedocs.io/en/latest/getting_started/quick_start.html)
-To use praw with your program you have to: 
-Go to [Reddit preferences/apps](https://www.reddit.com/prefs/apps) while logged in with a reddit account.
-Click on the create app and fill out the form:
-- name: RedditAnalysis
-- App type: Choose the script option
-- description: You can leave this blank
-- about url: You can leave this blank
-- redirect url: http://localhost:8080 
 
-That gives you your app's client ID and apps client secret number which are used when you create a reddit instance, as shown in the example below:
-
-```
-import praw
-
-reddit = praw.Reddit(client_id='my client id',
-                     client_secret='my client secret',
-                     user_agent='my user agent')
-
-```
-
-Or if you want to do whatever your Reddit account is authorized to do:
-
-```
-import praw
-
-reddit = praw.Reddit(client_id='my client id',
-                     client_secret='my client secret',
-                     user_agent='my user agent',
-                     username='my username',
-                     password='my password')
-```
-
-### Reading data 
-#### Obtaining a subreddit instance [Subreddit instances](https://praw.readthedocs.io/en/latest/code_overview/models/subreddit.html#praw.models.Subreddit):
-```
-subreddit = reddit.subreddit('learnpython')      
-```
-
-#### Obtain submission instances from a created submission instance [Submission instances](https://praw.readthedocs.io/en/latest/code_overview/models/submission.html#praw.models.Submission):
-
-Example:
-```
-# assume you have a Subreddit instance bound to variable `subreddit`
-for submission in subreddit.hot(limit=10):
-    print(submission.title)  # Output: the submission's title
-    print(submission.score)  # Output: the submission's score
-    print(submission.id)     # Output: the submission's ID
-    print(submission.url)    # Output: the URL the submission points to
-                             # or the submission's URL if it's a self post
-```
-Sorts you can iterate through:
-- controversial
-- gilded
-- hot
-- new
-- rising
-- top
-
-#### Obtain redditor instances [Redditor Attributes](https://praw.readthedocs.io/en/latest/code_overview/models/redditor.html#praw.models.Redditor):
-
-Two most common ones are:
-- via the author attribute of a Submission or Comment instance
-- via the redditor() method of Reddit
-
-Example:
-```
- # assume you have a Submission instance bound to variable `submission`
- redditor1 = submission.author
- print(redditor1.name)  # Output: name of the redditor
-
-# assume you have a Reddit instance bound to variable `reddit`
- redditor2 = reddit.redditor('bboe')
- print(redditor2.link_karma)  # Output: u/bboe's karma
-```
-
-#### Obtain comment instances [Comment Attributes](https://praw.readthedocs.io/en/latest/code_overview/models/comment.html#praw.models.Comment):
-Submissions have a comments attribute that is a CommentForest instance. That instance is iterable and represents the top-level comments of the submission by the default comment sort (best). If you instead want to iterate over all comments as a flattened list you can call the list() method on a CommentForest instance.
-
-Example:
-```
-# assume you have a Reddit instance bound to variable `reddit`
-top_level_comments = list(submission.comments)
-all_comments = submission.comments.list()
-```
