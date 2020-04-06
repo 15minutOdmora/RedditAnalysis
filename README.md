@@ -59,7 +59,7 @@ V mapi **secondary** se nahajajo vsi programi, ki so bili uporabljeni za zbiranj
 
 ## Analiza
 ### Ali čas objave vpliva na uspešnost le te?
-
+![slika1](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/post_upvotes_all.png)
 
 
 
