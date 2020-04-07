@@ -149,12 +149,18 @@ Sledi prikaz dveh vrst stolpičnih diagramov, podbralnikov razverščenih po raz
 #### Nagrade 
 V Redditu poznamo nagrade, razlikujejo se po vrednosti ter prikazu. Če je uporabniku objava zelo všeč ji lahko podari eno izmed mnogih nagrad. Nagrade se sicer plača z Reddit valuto imenovano coins katero kupimo z pravim denarjem.
 
-Tukaj bomo uporabili le tiste klasične kot so:
+Tukaj smo uporabili le tiste normalne kot so:
 - silver      100 coins    0,40€
 - gold        500 coins    2,30€
 - platinum    1800 coins   7,00€
 
-#### 
+#### Rankiranje po številu gold awards
+![slikanevemful](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/all_awards.png)
+
+#### Rankiranje po vrednosti vseh nagrad skupaj
+![slikalika]()
+
+Na prvem mestu podbralnik Gonewild, ta spada pod kategorijo nsfw in temelji na 'nudes'(nagih slikah) večinoma deklet. Poleg tega, da ima ta podbralnik mnogo manj sledilcev od ostalih na seznamu je po številu nagrad na prvem mestu, zanimivo!
 
 
 
