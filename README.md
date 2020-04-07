@@ -27,7 +27,7 @@ Ločila sva jih na 4 skupine:
 
 Skupno je tako bilo dnevno pregledanih 238 podbralnikov, število objav je variralo glede na posamezen podbralnik, vse med 0 in 100. Po enajstih dnevih je bilo prebranih skupno 126,093 objav, kar je približno 11,463 na dan.
 
-Tako sva program imenovan reading_daily_data.py pognala 11 dni zapored ob približno enaki uri.Program je za vsak podbralnik iz omenjenih skupin prebral podatke od0 do 100 najbolših objav iz preteklih 24 ur. Kot zanimivost je to v povprečju trajalo približno 2 uri. Ker razni podbralniki prejmejo dnevno več kot 1000 objav, ni bilo mogoče prebrati vseh. Podatki zato ne predstavljajo celotne populacije.
+Tako sva program imenovan reading_daily_data.py pognala 11 dni zapored ob približno enaki uri. Program je za vsak podbralnik iz omenjenih skupin prebral podatke od 0 do 100 najbolših objav iz preteklih 24 ur. Kot zanimivost je to v povprečju trajalo približno 2 uri. Ker razni podbralniki prejmejo dnevno več kot 1000 objav, ni bilo mogoče prebrati vseh. Podatki zato ne predstavljajo celotne populacije.
 
 Pri dnevnem prebiranju podatkov smo za posamezno objavo prebrali in shranili naslednje podatke:
 - število 'upvotes'
@@ -55,27 +55,27 @@ Pri črpanju podatkov uporabnikov, sva se omejila zaradi časovne kompleksnosti 
 Podatki, ki so bili diskontinuirani zaradi presojene neuporabnosti so: število karme objav/komentarjev, število komentarjev/objav ter komentarji z več kot 1000 karme.
 
 ## Uporabljeni programi
-V repozitoriju se nahajata dve mapi: **main** in **secondary**. V mapi main so shranjeni vsi programi in razne datoteke, ki so potrebni za pogon programa main.py. S tem si je mogoče ogledati vse prikazane grafe, histograme,...V programu je sestavljen enostaven uporabniški vmesnik, preko katerega je mogoče izrisati vse prikazane podatke. Ti podatki se nanašajo naprej omenjene skupine podbralnikov(normal, nsfw...), posamezne podbralnike ali pa za vse skupaj. V mapi secondary se nahajajo vsi programi, ki so bili uporabljeni za zbiranje in urejanje podatkov.
+V repozitoriju se nahajata dve mapi: **main** in **secondary**. V mapi main so shranjeni vsi programi in razne datoteke, ki so potrebni za pogon programa main.py. S tem si je mogoče ogledati vse prikazane grafe, histograme,...V programu je sestavljen enostaven uporabniški vmesnik, preko katerega je mogoče izrisati vse prikazane podatke. Ti podatki se nanašajo na prej omenjene skupine podbralnikov(normal, nsfw...), posamezne podbralnike ali pa za vse skupaj. V mapi secondary se nahajajo vsi programi, ki so bili uporabljeni za zbiranje in urejanje podatkov.
 
 ## Uporabljene knjižnice:
 #### Niso potrebne za delovanje programa main.py:
 - praw (API za zbiranje podatkov iz Reddita)
 - prawcore
-#### So potrebni za delovanje programa main.py:
+#### So potrebne za delovanje programa main.py:
 - json
 - numpy
 - matplotlib
 
 ## Analiza(Daily data)
 ### Ali ura objave vpliva na uspešnost le te?
-Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid objave si interpretirajmo z njeno uspešnostjo, ki  se meri s številom 'upvotes'. Tako je naprimer objava, ki je v celoti prejela 20 'upvotes' manj uspešna, kot druga, ki jih je prejela 1000+. Na Redditu lahko opazimo, da je število uspešnih objav majhno v primerjavi z neuspešnimi.Za tem verjetno leži algoritem sortiranja.Ta gre po kategorijah objav (new, rising, hot). Večina objav se po the kategorijah pomika vertikalno le najboljše od teh se premaknejo v naslednjo kategorijo (horizontalno). V vsaki kategoriji se tako objava prikaže vedno večjemu številu ostalih uporabnikov, ter ima tako možnost prejeti večje število 'upvotes'.
+Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid objave si interpretirajmo z njeno uspešnostjo, ki  se meri s številom 'upvotes'. Tako je naprimer objava, ki je v celoti prejela 20 'upvotes' manj uspešna, kot druga, ki jih je prejela 1000+. Na Redditu lahko opazimo, da je število uspešnih objav majhno v primerjavi z neuspešnimi. Za tem verjetno leži algoritem sortiranja. Ta gre po kategorijah objav (new, rising, hot). Večina objav se po teh kategorijah ne pomika, le peščica najboljših od teh se pramaknejo v naslednjo kategorijo. V vsaki kategoriji se tako objava prikaže vedno večjemu številu ostalih uporabnikov, ter ima tako možnost prejeti večje število 'upvotes'.
 
-Zbrali smo podatke o času vseh objav, prav tako smo si shranili tudi uspešnosti('upvotes'). Podatki so prikazani na spodnjih grafih. Zgornji prikazuje povprečno število “upvotes”, ki je bila objavljena v določeni uri.V spodnjem pa število objav v posamezni uri.
+Zbrali smo podatke o času vseh objav, prav tako smo si shranili tudi uspešnosti('upvotes'). Podatki so prikazani na spodnjih grafih. Zgornji prikazuje povprečno število “upvotes”, ki je bila objavljena v določeni uri. V spodnjem pa število objav v posamezni uri.
 
  
 ![slika1](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/post_upvotes_all.png)
 
-Opazimo, da grafa nista linearna, prav tako bomo kasneje pokazali, da sta si verjetno odvisna. Na spodnjem grafu lahko predpostavimo, da število objav narašča s številom uporabnikov, ki se v določeni uri nahajajo na spletni strani. To bi verjetno držalo, saj v primeru, da je več uporabnikov na strani jih tako tudi več poda objavo. Opazimo dva vrhova in dve dolini.Tako je v določenih urah več uporabnikov, kot v ostalih. Npr. okoli 15h in med 20h - 3h je veliko več uporabnikov, kot v ostalih urah. Iz zbranih podatkov težko predpostavimo zakaj bi bilo tako. Zato bomo v prihodnje primerjali med različnimi skupinami podbralnikov.
+Opazimo, da grafa nista linearna, prav tako bomo kasneje pokazali, da sta si verjetno odvisna. Na spodnjem grafu lahko predpostavimo, da število objav narašča s številom uporabnikov, ki se v določeni uri nahajajo na spletni strani. To bi verjetno držalo, saj v primeru, da je več uporabnikov na strani jih tako tudi več poda objavo. Opazimo dva vrhova in dve dolini. Tako je v določenih urah več uporabnikov, kot v ostalih. Npr. okoli 15h in med 20h - 3h je veliko več uporabnikov, kot v ostalih urah. Iz zbranih podatkov težko predpostavimo zakaj bi bilo tako. Zato bomo v prihodnje primerjali med različnimi skupinami podbralnikov.
 
 Če primerjamo obe 'krivulji' v določeni uri, prikazano odspodaj:
 
@@ -148,6 +148,31 @@ Podbralnik je namenjen političnim novicam in mnenjem.
 
 Dokaj linearna oblika, komentarji naraščajo z številom 'upvotes', vendar jih je nekoliko več, kot pri normalnih podbralnikih. Vidimo tudi nekaj pik(ojav), ki odstopajo, tam se je verjetno v komentarjih razvilo, kar nekaj pogovorov glede na naravo podbralnika. 
 
+
+
+#### Zaključek 
+
+Pri vseh zgoraj prikazanih grafih lahko zasledimo, da so bolj obarvani zeleno(sllabše ocenjeni) na levi strani, ter, da so ponavadi objave z več komentarji slabše ocenjene. To si lahko razlagamo s tem, da kontroverzne objave sprožijo več različnih menenj in so tako uporabniki bolj nagnjeni h komentiranju. 
+
+### Sortiranje
+Sledi prikaz dveh vrst stolpičnih diagramov, podbralnikov razverščenih po različnih parametrih.
+
+#### Nagrade 
+V Redditu poznamo nagrade, razlikujejo se po vrednosti ter prikazu. Če je uporabniku objava zelo všeč ji lahko podari eno izmed mnogih nagrad. Nagrade se sicer plača z Reddit valuto imenovano coins katero kupimo z pravim denarjem.
+
+Tukaj smo uporabili le tiste normalne kot so:
+- silver      100 coins    0,40€
+- gold        500 coins    2,30€
+- platinum    1800 coins   7,00€
+
+#### Rankiranje po številu gold awards
+![slikanevemful](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/all_awards.png)
+
+#### Rankiranje po vrednosti vseh nagrad skupaj
+![slikalika](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/allawards1.png)
+
+Na prvem mestu podbralnik Gonewild, ta spada pod kategorijo nsfw in temelji na 'nudes'(nagih slikah) večinoma deklet. Poleg tega, da ima ta podbralnik mnogo manj sledilcev od ostalih na seznamu je po številu nagrad na prvem mestu, zanimivo!
+
 ## Histogrami podatkov uporabnikov
 
 #### Razmerje uporabnikov, ki so moderatorji, s premium statusom, tistih ki imajo oboje, ter normalnih
@@ -177,29 +202,6 @@ Zadnji histogram je osnovan na podatkih, kjer so bili obiskovani 'subredditi' up
 ![caption3](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/sw_Art.PNG)
 
 Zgornja slika je primer enega izmed 6 primerjav.
-
-#### Zaključek 
-
-Pri vseh zgoraj prikazanih grafih lahko zasledimo, da so bolj obarvani zeleno(sllabše ocenjeni) na levi strani, ter, da so ponavadi objave z več komentarji slabše ocenjene. To si lahko razlagamo s tem, da kontroverzne objave sprožijo več različnih menenj in so tako uporabniki bolj nagnjeni h komentiranju. 
-
-### Sortiranje
-Sledi prikaz dveh vrst stolpičnih diagramov, podbralnikov razverščenih po različnih parametrih.
-
-#### Nagrade 
-V Redditu poznamo nagrade, razlikujejo se po vrednosti ter prikazu. Če je uporabniku objava zelo všeč ji lahko podari eno izmed mnogih nagrad. Nagrade se sicer plača z Reddit valuto imenovano coins katero kupimo z pravim denarjem.
-
-Tukaj smo uporabili le tiste normalne kot so:
-- silver      100 coins    0,40€
-- gold        500 coins    2,30€
-- platinum    1800 coins   7,00€
-
-#### Rankiranje po številu gold awards
-![slikanevemful](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/all_awards.png)
-
-#### Rankiranje po vrednosti vseh nagrad skupaj
-![slikalika](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/allawards1.png)
-
-Na prvem mestu podbralnik Gonewild, ta spada pod kategorijo nsfw in temelji na 'nudes'(nagih slikah) večinoma deklet. Poleg tega, da ima ta podbralnik mnogo manj sledilcev od ostalih na seznamu je po številu nagrad na prvem mestu, zanimivo!
 
 ### Vse zgoraj prikazane grafe, diagrame,... je možno izrisati z uporabo programa main.py. Poleg navedenih zajema še mnogo možnosti za različna sortiranja ali pa prikaz za določene skupine, podbralnike... Enostavno je vsega preveč, da bi tukaj povzel na kratko.  
 
