@@ -114,7 +114,7 @@ V to skupino podbralnikov spadajo vsi tisti, ki niso primerni "za v javnost". Ve
 ![slika5](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_nsfw.png)
 
 Zanimivo je bolj obarvan rumeno, kar pomeni, da so objave bolše ocenjene. Hkrati je tudi manj komentarjev, v primerjavi z katerimi drugimi skupinami, to se sicer ne vidi takoj, vendar če se ozremo na števila pri oseh to opazimo. 
-Zakaj je tako nebi mogel povedati z zagotovostjo, vendar sklepam, da osebe bolje sprejmejo goloto.
+Zakaj je tako nebi mogel povedati z gotovostjo, vendar sklepam, da osebe bolje sprejmejo goloto.
 
 #### Podbralniki različnih držav 
 
@@ -142,6 +142,19 @@ Dokaj linearna oblika, komentarji naraščajo z številom 'upvotes', vendar jih 
 #### Zaključek 
 
 Pri vseh zgoraj prikazanih grafih lahko zasledimo, da so bolj obarvani zeleno(sllabše ocenjeni) na levi strani, ter, da so ponavadi objave z več komentarji slabše ocenjene. To si lahko razlagamo s tem, da kontroverzne objave sprožijo več različnih menenj in so tako uporabniki bolj nagnjeni h komentiranju. 
+
+### Sortiranje
+Sledi prikaz dveh vrst stolpičnih diagramov, podbralnikov razverščenih po različnih parametrih.
+
+#### Nagrade 
+V Redditu poznamo nagrade, razlikujejo se po vrednosti ter prikazu. Če je uporabniku objava zelo všeč ji lahko podari eno izmed mnogih nagrad. Nagrade se sicer plača z Reddit valuto imenovano coins katero kupimo z pravim denarjem.
+
+Tukaj bomo uporabili le tiste klasične kot so:
+- silver      100 coins    0,40€
+- gold        500 coins    2,30€
+- platinum    1800 coins   7,00€
+
+#### 
 
 
 
