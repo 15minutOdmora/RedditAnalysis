@@ -57,7 +57,7 @@ V mapi **secondary** se nahajajo vsi programi, ki so bili uporabljeni za zbiranj
 - numpy
 - matplotlib
 
-## Analiza
+## Analiza(Daily data)
 ### Ali ura objave vpliva na uspešnost le te?
 Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid objave si interpretiramo z njeno uspešnostjo, le to se meri z številom 'upvotes'. Tako je naprimer objava, ki je v celoti prejela 20 'upvotes' manj uspešna, kot nekatera druga, ki jih je prejela 1000+. Na Redditu lahko opazimo, da je število uspešnih objav majhno v primerjavi z ne uspešnimi. Za tem verjetno leži algoritem sortiranja, to gre nekako po skupinah(new, rising, hot), najbolše objave se premikajo po le teh, vendar le naj uspešnejše se premaknejo v naslednjo. V vsaki skupini se tako objava prikaže vedno večjemu številu ostalih uporabnikov, ter ima tako možnost prejeti večje število 'upvotes'.
 
@@ -158,10 +158,11 @@ Tukaj smo uporabili le tiste normalne kot so:
 ![slikanevemful](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/all_awards.png)
 
 #### Rankiranje po vrednosti vseh nagrad skupaj
-![slikalika]()
+![slikalika](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/allawards1.png)
 
 Na prvem mestu podbralnik Gonewild, ta spada pod kategorijo nsfw in temelji na 'nudes'(nagih slikah) večinoma deklet. Poleg tega, da ima ta podbralnik mnogo manj sledilcev od ostalih na seznamu je po številu nagrad na prvem mestu, zanimivo!
 
+### Vse zgoraj prikazane grafe, diagrame,... je možno izrisati z uporabo programa main.py. Poleg navedenih zajema še mnogo možnosti za različna sortiranja ali pa prikaz za določene skupine, podbralnike... Enostavno je vsega preveč, da bi tukaj povzel na kratko.  
 
 
 
