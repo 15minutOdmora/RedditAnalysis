@@ -40,7 +40,19 @@ Pri dnevnem prebiranju podatkov smo za posamezno objavo prebrali in shranili nas
 - število 'upvotes' 10 naj boljših komentarjev.
 
 ### User data 
-...
+Poizvedovala sva tudi o uporabnikih; iz uporabniškega objekta sva izčrpala sledeče podatke:
+- število karme komentarjev
+- število karme objav
+- število komentarjev
+- število objav
+- ali je uporabnik moderator oz. če ima premium status
+- frekvenca komentiranja/objavljanja po urah in mesecih
+- komentarji z več kot 1000 karme
+- najbolj pogosto obiskovani 'subredditi', na podlagi komentarjev/objav
+
+Sekundarni program za zbiranje podatkov je vzel seznam uporabnikov, sestavljen iz dnevnega branja podatkov. Ostali pomožni programi so nato te podatke predrugačili za uporabo pri izrisovanju histogramov.
+Pri črpanju podatkov uporabnikov, sva se omejila zaradi časovne kompleksnosti na 100 uporabnikov pri opazovanju drugih 'subredditov', ki jih uporabniki obiskujejo, poleg tistega iz katerega so bili vzeti. Za histogram, koliko uporabnikov je moderatorjev ali ima premium status, sva pogledala 1000 instanc.
+Podatki, ki so bili diskontinuirani zaradi presojene neuporabnosti so: število karme objav/komentarjev, število komentarjev/objav ter komentarji z več kot 1000 karme.
 
 ## Uporabljeni programi
 V repozitoriju se nahajata dve mapi: **main** in **secondary**. V mapi main so shranjeni vsi programi in razne datoteke, ki so potrebni za pogon programa main.py. S tem si je mogoče ogledati vse prikazane grafe, histograme,...V programu je sestavljen enostaven uporabniški vmesnik, preko katerega je mogoče izrisati vse prikazane podatke. Ti podatki se nanašajo naprej omenjene skupine podbralnikov(normal, nsfw...), posamezne podbralnike ali pa za vse skupaj. V mapi secondary se nahajajo vsi programi, ki so bili uporabljeni za zbiranje in urejanje podatkov.
@@ -135,6 +147,36 @@ Podbralnik je namenjen političnim novicam in mnenjem.
 ![slika9](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_politics.png)
 
 Dokaj linearna oblika, komentarji naraščajo z številom 'upvotes', vendar jih je nekoliko več, kot pri normalnih podbralnikih. Vidimo tudi nekaj pik(ojav), ki odstopajo, tam se je verjetno v komentarjih razvilo, kar nekaj pogovorov glede na naravo podbralnika. 
+
+## Histogrami podatkov uporabnikov
+
+#### Razmerje uporabnikov, ki so moderatorji, s premium statusom, tistih ki imajo oboje, ter normalnih
+
+Histogram je osnovan na glavnici ~11000 uporabnikov. 
+
+![caption](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/mod_prem.PNG)
+
+Delež uporabnikov, ki so moderatorji je 6.5%; delež uporabnikov z premium statusom: 16.7%; delež uporabnikov z obema: 5.8%, ter preostali ~71%.
+
+Histogram nam ne pove veliko. Sklep, ki je možen na podlagi prikazanega je, da so tisti uporabniki, ki imajo premium status bolj aktivni uporabniki Reddita kot ostali, ter da če je uporabnik moderator, ni nujno da je sam dosti aktiven v samem objavljanju ali komentiranju. Delež uporabnikov, brez česarkoli, so tisti uporabniki, ki bore malo komentirajo in objavljajo; recimo, da so bolj vključeni v dodajanje prepoznavnosti objavam ali komentarjev, preko dodeljevanja 'upvotes' ali darovanja premium statuta.
+
+#### Kaj uporabniki določenih 'subredditov' najbolj obiskujejo, poleg gledanega
+
+Ta histogram, črpa iz pogostosti objavljanja in komentiranja, kjer je bil pregledan profil uporabnika in njegove aktivnosti. Torej: prešteti so bili komentarji in objave, poleg pripeta imena 'subredditov' in nato ločeni na 14 'subredditov', kjer so uporabniki najbolj aktivni.
+
+![caption2](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/top_14.PNG)
+
+Zgornja slika je primer enega izmed ogledanih uporabnikov 'subreddita'.
+
+Na podlagi histograma, lahko zasnujemo v grobem, kaj uporabnik sploh počne na Redditu, oziroma kakšno vsebino si ogleduje. Če stopim korak dalje, malce preveč, bi lahko na podlagi nekaterih histogramov ugibali o starostni skupini uporabnikov. Tak primer histograma je npr. 'dankmemes', ki ni zgornji. Skratka, dobimo sliko interesov uporabnikov; namen uporabe spletne strani Reddita: zabava, informiranje, učenje, itd.
+
+#### Direktna primerjava interesov navidezno nasprotujočih si 'subredditov'
+
+Zadnji histogram je osnovan na podatkih, kjer so bili obiskovani 'subredditi' uporabnikov neposredno primerjani med njimi. Vključenih jih je 10, kjer so se pojavili 'subredditi', ki jih uporabniki obojih primerjanih 'subredditov' največ obiskujejo. Število povezav nam pove, koliko uporabnikov primerjanih 'subredditov', obiskuje njim skupen 'subreddit'.
+
+![caption3](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/sw_Art.PNG)
+
+Zgornja slika je primer enega izmed 6 primerjav.
 
 #### Zaključek 
 
