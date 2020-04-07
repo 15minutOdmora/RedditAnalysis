@@ -85,7 +85,7 @@ def post_upvotes():
         print("If you would like to include data from only one specific subreddit type in:\n- subreddit")
         print("If you would like to look at the data from all the subreddits type in\n- all\n")
         print("To exit type in 0.\n")
-        user_input = input("In:")
+        user_input = input("In: ")
         if user_input == '0':
             break
         # If its in the category just call the function
@@ -125,7 +125,7 @@ def upv_to_comment():
         # Set the log scale
         print("Would you like the axes to be in a logarithmic scale?(Recommended as the data is uhh...scattered.)\n" +
               "Type in yes or no.")
-        log_scale = input("In:")
+        log_scale = input("In: ")
         if log_scale not in ["yes", "no"]:
             log_scale = False
         else:
@@ -162,7 +162,7 @@ def compare_post_upvotes():
               " groups of subreddits, type in one of the following:\n- group")
         print("If you would like to include data from two specific subreddits type in:\n- subreddit")
 
-        user_input = input("In")
+        user_input = input("In: ")
 
         if user_input == '0':
             break
@@ -171,13 +171,13 @@ def compare_post_upvotes():
             while True:
                 print("Select the 1. st group by typing in the group name," +
                       " options:\n- normal\n- nsfw\n- europe\n- usa\n- all\n")
-                group1 = input("In")
+                group1 = input("In: ")
                 if group1 not in ['normal', 'nsfw', 'europe', 'usa', 'all']:
                     print("Wrong input, try again please!")
                     continue
                 print("Select the 2. st group by typing in the group name," +
                       " options:\n- normal\n- nsfw\n- europe\n- usa\n- all\n")
-                group2 = input("In:")
+                group2 = input("In: ")
                 if group2 not in ['normal', 'nsfw', 'europe', 'usa', 'all']:
                     print("Wrong input, try again please!")
                     continue
@@ -214,7 +214,7 @@ def sub_ranking():
         print("Displays bar charts of of subreddits ranked by different parameters")
         print("Type in one of the following groups, for the bar charts to be displayed\n" +
               "- normal\n- nsfw\n- europe\n- usa\n- all\n")
-        user_input = input("In:")
+        user_input = input("In: ")
         # If the user input fits a group
         if user_input in ["all", "normal", "europe", "usa", "nsfw"]:
             while True:
@@ -232,7 +232,7 @@ def sub_ranking():
                       "upvotes/2nd_top_comment_upvotes ratio.")
                 commands = ["s_avg_comments", "s_avg_upvotes", "s_avg_ud_ratio", "s_avg_uc_ratio",
                             "s_awards", "s_topcomupv_to_upv", "s_topcomupv_to_2topcomupv"]
-                user_command = input("In:")
+                user_command = input("In: ")
                 if user_command in commands:
                     # If user command is awards, ask for more a more specific command
                     if user_command == "s_awards":
@@ -292,7 +292,7 @@ def stats_display(name, data, s_deviation):
               "with a standard deviation of {}".format(round(dev_ud_ratio, 2)))
         print("The average number of words in title was {}.".format(avg_words))
         print("\n Type in anything to exit back.")
-        input("In")
+        input("In: ")
         break
 
 
@@ -308,7 +308,7 @@ def stats():
               "- normal\n- nsfw\n- europe\n- usa\n- all\n" +
               "If you would like to look at data of one specific subreddit type in:\n" +
               "- subreddit")
-        user_input = input("In:")
+        user_input = input("In: ")
 
         # If its for a specific subreddit, ask for what subreddit
         if user_input == "subreddit":
@@ -432,7 +432,7 @@ def user_data():
               "top_14                ...     Bar chart of top 14 other visited subreddits from select subreddits\n" +
               "common                ...     Bar chart of top 10 in common subreddits of select subreddits \n")
 
-        user_input = input()
+        user_input = input('In: ')
 
         if user_input == "list":
             list_of_subreddits()
@@ -444,17 +444,17 @@ def user_data():
             all_users(data_histo)
         elif user_input == 'common':
             print('Enter a number corresponding to what histogram you would like to see:', '\n')
-            print('0: AdviceAnimals vs AnimalsBeingBros', '\n',
+            print(' 0: AdviceAnimals vs AnimalsBeingBros', '\n',
                   '1: cats vs dankmemes', '\n',
                   '2: gonewild vs atheism', '\n',
                   '3: StarWars vs Art', '\n',
                   '4: Sydney vs Germany', '\n',
                   '5: TittyDrop vs iphone')
-            user_input = input()
+            user_input = input('In: ')
             general_commons(common_connections[int(user_input)])
         elif user_input == 'top_14':
             print('Enter the name of the subreddit you wish to see:', '\n', list(top_14_data.keys()))
-            user_input = input()
+            user_input = input('In: ')
             if user_input not in list(top_14_data.keys()):
                 print('This is not an option.')
             else:
