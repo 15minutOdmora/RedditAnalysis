@@ -24,6 +24,7 @@ Ločila sva jih na 4 skupine:
 - nsfw, najbolših 21 "nsfw"(not safe for work) podbralnikov, večinoma gre tle za podbrlnike, ki prikazujejo goloto.
 - europe, naključno izbranih 15 podbralnikov evropskih držav.
 - usa, najbolših 24 podbralnikov po številu sledilcev Severno Ameriških držav(kljub temu, da piše "usa").
+
 Skupno je tako bilo dnevno pregledanih 238 podbralnikov, število objav je variralo glede na posamezen podbralnik, vse med 0 in 100. Po enajstih dnevih je bilo prebranih skupno 126,093 objav, kar je približno 11,463 na dan.
 
 Tako sva program imenovan reading_daily_data.py pognala 11 dni zapored ob približno enaki uri.Program je za vsak podbralnik iz omenjenih skupin prebral podatke od0 do 100 najbolših objav iz preteklih 24 ur. Kot zanimivost je to v povprečju trajalo približno 2 uri. Ker razni podbralniki prejmejo dnevno več kot 1000 objav, ni bilo mogoče prebrati vseh. Podatki zato ne predstavljajo celotne populacije.
