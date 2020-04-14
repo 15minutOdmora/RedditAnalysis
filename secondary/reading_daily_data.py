@@ -6,9 +6,9 @@ import time
 import os
 
 # Initializing the API
-reddit = praw.Reddit(client_id='g5oHfBMlowm7oQ',
-                     client_secret='MX-BmHukfZxZY4jf1-ZFA8IcdA4',
-                     user_agent='RedditAnalysis by u/Adarkcid')
+reddit = praw.Reddit(client_id='',
+                     client_secret='',
+                     user_agent='')
 print(reddit.read_only)  # Test if working(prints True)
 
 
