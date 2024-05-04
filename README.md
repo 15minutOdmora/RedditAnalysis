@@ -1,4 +1,7 @@
 # Reddit Analysis
+
+[English version of this document](./README_english.md)
+
 ## Osnovna ideja projekta je uporabiti analizirane podatke za optimizacijo dodajanja objav.
 
 ## Na kratko o Redditu:
