@@ -76,13 +76,13 @@ Ali ura ob kateri objavimo na določen podbralnik vpliva na izid objave? Izid ob
 Zbrali smo podatke o času vseh objav, prav tako smo si shranili tudi uspešnosti('upvotes'). Podatki so prikazani na spodnjih grafih. Zgornji prikazuje povprečno število “upvotes”, ki je bila objavljena v določeni uri. V spodnjem pa število objav v posamezni uri.
 
  
-![slika1](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/post_upvotes_all.png)
+![slika1](./slike/post_upvotes_all.png)
 
 Opazimo, da grafa nista linearna, prav tako bomo kasneje pokazali, da sta si verjetno odvisna. Na spodnjem grafu lahko predpostavimo, da število objav narašča s številom uporabnikov, ki se v določeni uri nahajajo na spletni strani. To bi verjetno držalo, saj v primeru, da je več uporabnikov na strani jih tako tudi več poda objavo. Opazimo dva vrhova in dve dolini. Tako je v določenih urah več uporabnikov, kot v ostalih. Npr. okoli 15h in med 20h - 3h je veliko več uporabnikov, kot v ostalih urah. Iz zbranih podatkov težko predpostavimo zakaj bi bilo tako. Zato bomo v prihodnje primerjali med različnimi skupinami podbralnikov.
 
 Če primerjamo obe 'krivulji' v določeni uri, prikazano odspodaj:
 
-![slika2](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/post_upvotes_all_1.png)
+![slika2](./slike/post_upvotes_all_1.png)
 
 Primerjava krivulji nam pove naslednje. Med 10.in 11. uro (zelena navpična črta) so objave povprečno prejele več 'upvotes'. Opazimo, da je to ravno pred porastom števila uporabnikov. Lahko rečemo, da ob tisti uri število uporabnikov narašča. Objave, ki so bile takrat objavljene vidi več oseb, ki jim lahko dodelijo 'upvote'. To seveda velja v povprečju, objava mora biti ne glede na to, še vedno kvalitetna. Če pogledamo rdečo navpično črto opazimo, da objave objavljene v tisti uri povprečno prejmejo manj 'upvotes', saj se število uporabnikov in s tem posledično vidljivost objave drastično zmanjša. Tako lahko zaključimo, da čas objave vpliva na njeno uspešnost.
 
@@ -91,7 +91,7 @@ Ker je Reddit svetovno znana spletna stran, nam prejšnji graf v relaciji s čas
 
 Tako bomo primerjali med podbralniki Evropskih držav in Severno Ameriških.
 
-![slika3](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/compare_post_upvotes.png)
+![slika3](./slike/compare_post_upvotes.png)
 
 Pri primerjavi evropskih podbralnikov in ameriških, opazimo podobnost spodnje ležečih krivulj. Obe imata vrhova, in sicer enega malo večjega od drugega. Razlikuje ju zamak v času. Na sliki sicer ne piše vendar je čas podan po UTC. Vidimo, da je vrh pri Evropskih podbralnikih okoli 12.ure, pri Ameriških pa okrog 20. ure. Vrhovi se ujemajo, saj je v Ameriki povprečno čas +8 UTC, v Evropi pa okrog 0 UTC. Večja vrhova pri obeh grafih nastaneta okrog kosila.
 
@@ -111,7 +111,7 @@ V naslednjih grafih je posamezna pika ena objava, na y-osi je predstavljeno njen
 
 #### Podbralniki iz skupine normal. 
 Veliko raznolikosti je v delovanju določenih podbralnikov, vendar lahko še vedno nekaj izluščimo. 
-![slika4](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_normal.png)
+![slika4](./slike/scatter_normal.png)
 
 Oblika nakazuje, da število komentarjev narašča z številom 'upvotes'. To lahko zasledimo že z gledanjem objav na Redditu, ko objavo vidi več uporabnikov, prejme več 'upvote'ov in hkrati več komentarjev.
 
@@ -123,14 +123,14 @@ V to skupino podbralnikov spadajo vsi tisti, ki niso primerni "za v javnost". Ve
 
 Če si ogledamo, kako bi zgledal graf razprešenosti:
 
-![slika5](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_nsfw.png)
+![slika5](./slike/scatter_nsfw.png)
 
 Zanimivo je bolj obarvan rumeno, kar pomeni, da so objave bolše ocenjene. Hkrati je tudi manj komentarjev v primerjavi z katerimi drugimi skupinami, to se sicer ne vidi takoj, vendar če se ozremo na števila pri oseh to opazimo. 
 Zakaj je tako nebi mogel povedati z gotovostjo, vendar sklepam, da osebe bolje sprejmejo goloto.
 
 #### Podbralniki različnih držav 
 
-![slika6](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_europe.png) ![slika7](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_usa.png)
+![slika6](./slike/scatter_europe.png) ![slika7](./slike/scatter_usa.png)
 
 Pojavita se dve 'veji'. Desna je predvsem normalna kot smo opazili do zdej. Leva pa nakazuje večje število komentarjev. Hkrati je vse skupaj obarvano bolj zeleno, kar pomeni, da so objave slabše ocenjene. To bi blo predvsem zato, ker se v takih podbralnikih večinoma objavlja razna uprašanja, politična mnenja ali novice. Pri tem je razlika v osebnih mnenjih velika, posledično več komentarjev in slabše ocene.
 
@@ -139,7 +139,7 @@ Pojavita se dve 'veji'. Desna je predvsem normalna kot smo opazili do zdej. Leva
 ##### Askreddit
 Ta podbralnik je namenjem vprašanjem uporabnikov namenjenim ostalim uporabnicom. Tako je bolj zasnovan na komentarjih objav, kot pa na sami vsebini objav. Same objave zajemajo le eno vprašanje.
 
-![slika8](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_askreddit.png)
+![slika8](./slike/scatter_askreddit.png)
 
 Na levi strani vidimo velik 'skok' navzgor, to si lahko razložimo z tem, da je podbralnik bolj osredotočen na komentarje. Če si sam podbralnik ogledamo opazimo, da objave prvotno dobijo veliko koentarjev ter nato šele 'upvotes'. To bi razložilo tisti 'skok'. 
 
@@ -147,7 +147,7 @@ Na levi strani vidimo velik 'skok' navzgor, to si lahko razložimo z tem, da je 
 
 Podbralnik je namenjen političnim novicam in mnenjem. 
 
-![slika9](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/scatter_politics.png)
+![slika9](./slike/scatter_politics.png)
 
 Dokaj linearna oblika, komentarji naraščajo z številom 'upvotes', vendar jih je nekoliko več, kot pri normalnih podbralnikih. Vidimo tudi nekaj pik(ojav), ki odstopajo, tam se je verjetno v komentarjih razvilo, kar nekaj pogovorov glede na naravo podbralnika. 
 
@@ -169,10 +169,10 @@ Tukaj smo uporabili le tiste normalne kot so:
 - platinum    1800 coins   7,00€
 
 #### Rankiranje po številu gold awards
-![slikanevemful](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/all_awards.png)
+![slikanevemful](./slike/all_awards.png)
 
 #### Rankiranje po vrednosti vseh nagrad skupaj
-![slikalika](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/allawards1.png)
+![slikalika](./slike/allawards1.png)
 
 Na prvem mestu podbralnik Gonewild, ta spada pod kategorijo nsfw in temelji na 'nudes'(nagih slikah) večinoma deklet. Poleg tega, da ima ta podbralnik mnogo manj sledilcev od ostalih na seznamu je po številu nagrad na prvem mestu, zanimivo!
 
@@ -182,7 +182,7 @@ Na prvem mestu podbralnik Gonewild, ta spada pod kategorijo nsfw in temelji na '
 
 Histogram je osnovan na glavnici ~11000 uporabnikov. 
 
-![caption](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/mod_prem.PNG)
+![caption](./slike/mod_prem.PNG)
 
 Delež uporabnikov, ki so moderatorji je 6.5%; delež uporabnikov z premium statusom: 16.7%; delež uporabnikov z obema: 5.8%, ter preostali ~71%.
 
@@ -192,7 +192,7 @@ Histogram nam ne pove veliko. Sklep, ki je možen na podlagi prikazanega je, da 
 
 Ta histogram, črpa iz pogostosti objavljanja in komentiranja, kjer je bil pregledan profil uporabnika in njegove aktivnosti. Torej: prešteti so bili komentarji in objave, poleg pripeta imena 'subredditov' in nato ločeni na 14 'subredditov', kjer so uporabniki najbolj aktivni.
 
-![caption2](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/top_14.PNG)
+![caption2](./slike/top_14.PNG)
 
 Zgornja slika je primer enega izmed ogledanih uporabnikov 'subreddita'.
 
@@ -202,7 +202,7 @@ Na podlagi histograma, lahko zasnujemo v grobem, kaj uporabnik sploh počne na R
 
 Zadnji histogram je osnovan na podatkih, kjer so bili obiskovani 'subredditi' uporabnikov neposredno primerjani med njimi. Vključenih jih je 10, kjer so se pojavili 'subredditi', ki jih uporabniki obojih primerjanih 'subredditov' največ obiskujejo. Število povezav nam pove, koliko uporabnikov primerjanih 'subredditov', obiskuje njim skupen 'subreddit'.
 
-![caption3](https://github.com/15minutOdmora/RedditAnalysis/blob/master/slike/sw_Art.PNG)
+![caption3](./slike/sw_Art.PNG)
 
 Zgornja slika je primer enega izmed 6 primerjav.
 
